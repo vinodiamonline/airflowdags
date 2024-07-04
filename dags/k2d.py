@@ -1,8 +1,8 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
-#from pyspark.sql import SparkSession
-#from deltalake import DeltaTable
+from pyspark.sql import SparkSession
+from deltalake import DeltaTable
 
 def k2d_execute_method():
     print("Hello, K2d!")
