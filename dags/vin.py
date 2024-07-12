@@ -21,11 +21,13 @@ task = PythonOperator(
 task1= BashOperator(
         task_id='Test_kubernetes_executor',
         bash_command='echo Kubernetes',
-        queue = 'kubernetes'
+        queue = 'kubernetes',
+        dag=dag,
     )
 task2 = BashOperator(
         task_id='Test_Celery_Executor',
         bash_command='echo Celery',
+        dag=dag,
     )
 
 task
