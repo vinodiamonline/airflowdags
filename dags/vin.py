@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.bash import bashoperator
 from datetime import datetime
 
 def say_hello():
