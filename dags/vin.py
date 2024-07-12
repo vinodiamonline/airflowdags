@@ -4,7 +4,7 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime
 
 def say_hello():
-    print("Hello, Vinod!")
+    print("Hello, Vinod Celary and Kubernetes!")
 
 dag = DAG(
     'hello_vin',
