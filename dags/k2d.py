@@ -6,12 +6,6 @@ from pyspark.sql import SparkSession
 
 def k2d_execute_method():
     print("Hello, K2d!")
-    spark = SparkSession \
-    .builder \
-    .appName("Python Spark SQL basic example") \
-    .config("spark.some.config.option", "some-value") \
-    .getOrCreate()
-
     sc =SparkContext()
     nums= sc.parallelize([1,2,3,4])
     squared = nums.map(lambda x: x*x).collect()
