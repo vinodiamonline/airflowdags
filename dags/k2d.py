@@ -1,11 +1,23 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
-#from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession
 #from deltalake import DeltaTable
 
 def k2d_execute_method():
     print("Hello, K2d!")
+    spark = SparkSession \
+    .builder \
+    .appName("Python Spark SQL basic example") \
+    .config("spark.some.config.option", "some-value") \
+    .getOrCreate()
+
+    sc =SparkContext()
+    nums= sc.parallelize([1,2,3,4])
+    squared = nums.map(lambda x: x*x).collect()
+    for num in squared:
+        print('%i ' % (num))
+    print("Hello, K2d Done")
 #    spark = SparkSession.builder \
 #        .appName("k2d") \
 #        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
