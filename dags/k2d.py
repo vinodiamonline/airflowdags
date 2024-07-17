@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
-from pyspark.sql import SparkContext
+from pyspark import SparkContext
 #from deltalake import DeltaTable
 
 def k2d_execute_method():
