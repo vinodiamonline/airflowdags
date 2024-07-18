@@ -30,6 +30,13 @@ def k2d_execute_method():
 #    print(dt.version())
 #    print(dt.files())
 
+    path = "s3a://warehouse/pqtest/p1.parquet"
+    
+    df1 = spark.read.format('parquet').options(header=True,inferSchema=True).load(path)
+    df1.show()
+
+    print("Hello, spark Done")
+
 dag = DAG(
     'k2d',
     description='A simple DAG that read kafka and push to delta',
