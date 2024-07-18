@@ -12,18 +12,18 @@ def k2d_execute_method():
     for num in squared:
         print('%i ' % (num))
     print("Hello, K2d Done")
-#    spark = SparkSession.builder \
-#        .appName("k2d") \
-#        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-#        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-#        .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
-#        .config("spark.hadoop.fs.s3a.access.key", "admin") \
-#        .config("spark.hadoop.fs.s3a.secret.key", "password") \
-#        .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
-#        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-#        .config("spark.databricks.delta.retentionDurationCheck.enabled", "false") \
-#        .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
-#        .getOrCreate()
+   spark = SparkSession.builder \
+       .appName("k2d") \
+       .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+       .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+       .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
+       .config("spark.hadoop.fs.s3a.access.key", "admin") \
+       .config("spark.hadoop.fs.s3a.secret.key", "password") \
+       .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
+       .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+       .config("spark.databricks.delta.retentionDurationCheck.enabled", "false") \
+       .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
+       .getOrCreate()
 #    path = "s3a://warehouse/large_1/"
 #    dt = DeltaTable.forPath(spark, path)
 #    print(dt.version())
