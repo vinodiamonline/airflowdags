@@ -13,7 +13,7 @@ def k2d_execute_method():
     for num in squared:
         print('%i ' % (num))
     print("Hello, K2d Done")
-   spark = SparkSession.builder \
+    spark = SparkSession.builder \
        .appName("k2d") \
        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
