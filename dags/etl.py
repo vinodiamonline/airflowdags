@@ -1,3 +1,5 @@
+from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
 from pyspark.context import SparkContext
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
@@ -38,38 +40,52 @@ def func2(arr):
                         subscriber_stats_bitrates = subscriber_stats_bitrates + bitrates
     writedata(userId, subscriber_stats_bitrates)
 
+def etl_execute_method():
+    print("Hello, d2d!")
+    
+    sc = SparkContext('local[*]')
+    
+    spark = SparkSession.builder \
+        .appName("k2d") \
+        .master("local[*]") \
+        .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0") \
+        .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
+        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+        .config("spark.hadoop.fs.s3a.access.key", "admin") \
+        .config("spark.hadoop.fs.s3a.secret.key", "password") \
+        .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
+        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+        .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
+        .getOrCreate()
+    
+    path = "s3a://warehouse/analytics_1/"
+    
+    df1 = spark.read.format('parquet').load(path)
+    df1.show()
+    
+    # df2 = df1.where(col("_c3") == ('80adfef49a7d61c4a2a56ae0b5b5c057ef7eb2fcad6a24a974865c26e01553da'))
+    
+    # df2.show(5)
+    
+    # df3 = df2.select(col("_c4"))
+    # df3.show(5)
+    # df4 = df3.withColumn("_c4",from_json(df3._c4,MapType(StringType(),StringType())))
+    # df4.show(5)
 
-print("Hello, K2d!")
+    # df4.foreach(lambda x: func2(x["_c4"]))
 
-sc = SparkContext('local[*]')
+dag = DAG(
+    'k2d',
+    description='A simple DAG that read from delta and push to delta',
+    schedule_interval='@once',
+    start_date=datetime(2022, 1, 1),
+)
 
-spark = SparkSession.builder \
-    .appName("k2d") \
-    .master("local[*]") \
-    .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0") \
-    .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
-    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-    .config("spark.hadoop.fs.s3a.access.key", "admin") \
-    .config("spark.hadoop.fs.s3a.secret.key", "password") \
-    .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
-    .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-    .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
-    .getOrCreate()
+task = PythonOperator(
+    task_id='k2d_task',
+    python_callable=etl_execute_method,
+    dag=dag,
+)
 
-path = "s3a://warehouse/analytics_1/"
-
-df1 = spark.read.format('parquet').load(path)
-df1.show()
-
-df2 = df1.where(col("_c3") == ('80adfef49a7d61c4a2a56ae0b5b5c057ef7eb2fcad6a24a974865c26e01553da'))
-
-df2.show(5)
-
-df3 = df2.select(col("_c4"))
-df3.show(5)
-
-df4 = df3.withColumn("_c4",from_json(df3._c4,MapType(StringType(),StringType())))
-df4.show(5)
-
-df4.foreach(lambda x: func2(x["_c4"]))
+task
