@@ -80,7 +80,7 @@ dag = DAG(
     'd2d',
     description='A simple DAG that read from delta and push to delta',
     schedule_interval='@once',
-    start_date=datetime(2022, 1, 1),
+    start_date=datetime(2022, 1, 1)
 )
 
 task = PythonOperator(
