@@ -76,14 +76,14 @@ def etl_execute_method():
     # df4.foreach(lambda x: func2(x["_c4"]))
 
 dag = DAG(
-    'k2d',
+    'd2d',
     description='A simple DAG that read from delta and push to delta',
     schedule_interval='@once',
     start_date=datetime(2022, 1, 1),
 )
 
 task = PythonOperator(
-    task_id='k2d_task',
+    task_id='d2d_task',
     python_callable=etl_execute_method,
     dag=dag,
 )
