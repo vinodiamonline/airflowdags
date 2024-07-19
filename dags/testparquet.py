@@ -13,7 +13,6 @@ task = SparkSubmitOperator(
  task_id='submit_job',
  application='testsparksubmit.py',
  conn_id='kind-spark',
- queue = 'kubernetes',
  dag = dag
 )
 
