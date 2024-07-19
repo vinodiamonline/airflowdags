@@ -6,7 +6,7 @@ dag = DAG(
     'spark_submit_job',
     description='A simple DAG that reads parquet file and print',
     schedule_interval='@once',
-    start_date=datetime(2022, 1, 1)
+    start_date=datetime(2022, 1, 1),
 )
 
 task = SparkSubmitOperator(
