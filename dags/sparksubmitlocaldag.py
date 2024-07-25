@@ -11,7 +11,7 @@ dag = DAG(
 
 task = SparkSubmitOperator(
  task_id='spark_submit_job_local_mode',
- application='./dags/testsparkdataframe.py',
+ application='./dags/repo/dags/testsparkdataframe.py',
  conn_id='kind-spark',
  dag = dag
 )
