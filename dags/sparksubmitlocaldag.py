@@ -13,7 +13,6 @@ task = SparkSubmitOperator(
  task_id='spark_submit_job_local_mode',
  application='./dags/testsparkdataframe.py',
  conn_id='kind-spark',
- queue = 'kubernetes',
  dag = dag
 )
 
