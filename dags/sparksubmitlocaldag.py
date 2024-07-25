@@ -11,7 +11,7 @@ dag = DAG(
 
 task = SparkSubmitOperator(
  task_id='spark_submit_job_local_mode',
- application='opt/airflow/dags/testsparkdataframe.py',
+ application='/opt/airflow/dags/testsparkdataframe.py',
  conn_id='kind-spark',
  queue = 'kubernetes',
  dag = dag
