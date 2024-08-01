@@ -17,7 +17,7 @@ task1= BashOperator(
     )
 task2 = BashOperator(
         task_id='etlspeechbash_Celery_Executor',
-        bash_command='java --add-exports java.base/sun.nio.ch=ALL-UNNAMED -jar opt/airflow/etlspeech-assembly-0.1.0-SNAPSHOT.jar "admin" "password" "http://host.docker.internal:9000" "s3a://warehouse/micrawdata1" "s3a://warehouse/tbl_engagement_speech_silver" "3456000"',
+        bash_command='java --add-exports java.base/sun.nio.ch=ALL-UNNAMED -jar "opt/airflow/etlspeech-assembly-0.1.0-SNAPSHOT.jar" "admin" "password" "http://host.docker.internal:9000" "s3a://warehouse/micrawdata1" "s3a://warehouse/tbl_engagement_speech_silver" "3456000"',
         dag=dag,
     )
 
