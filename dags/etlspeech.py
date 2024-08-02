@@ -12,8 +12,7 @@ dag = DAG(
 task = SparkSubmitOperator(
  task_id='etlspeech',
  application='/opt/airflow/etlspeechtime-assembly-0.1.0-SNAPSHOT.jar',
- class_name='speech',
- application_args=['admin', 'password', 'http://host.docker.internal:9000', 's3a://warehouse/micrawdata1', 's3a://warehouse/tbl_engagement_speech_silver', '3456000'],
+ application_args=['--class', 'speech', 'admin', 'password', 'http://host.docker.internal:9000', 's3a://warehouse/micrawdata1', 's3a://warehouse/tbl_engagement_speech_silver', '3456000'],
  conn_id='kind-spark',
  dag = dag
 )
