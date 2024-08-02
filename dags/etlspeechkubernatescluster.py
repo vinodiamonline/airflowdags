@@ -14,7 +14,7 @@ task = SparkSubmitOperator(
  application='/opt/airflow/etlspeechtime-assembly-0.1.0-SNAPSHOT.jar',
  java_class='speech',
  application_args=['admin', 'password', 'http://host.docker.internal:9000', 's3a://warehouse/micrawdata1', 's3a://warehouse/tbl_engagement_speech_silver', '3456000'],
- conn_id='kind-spark',
+ conn_id='kind-spark-cluster-mode',
  num_executors=4,
  conf={
     'spark.kubernetes.container.image': 'airflow-spark-delta-hadoop-scala:1.0.0',  # Required image for driver
