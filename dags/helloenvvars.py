@@ -4,7 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 
 
 def print_hello():
-    print('Hello env vars' + AIRFLOW_VAR_MY_S3_BUCKET)
+    print('Hello env vars' + $AIRFLOW_VAR_MY_S3_BUCKET)
 
 dag = DAG('helloenvvars', description='Hello World DAG',
           schedule_interval='0 12 * * *',
