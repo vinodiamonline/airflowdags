@@ -5,10 +5,9 @@ from airflow.models import Variable
 
 
 def print_hello():
-    print('Hello env vars' + Variable.get("MY_S3_BUCKET"))
-    print('Hello env vars' + Variable.get("S3_ENDPOINT"))
-    print('Hello env vars' + Variable.get("VIN_S3_BUCKET"))
-    print('Hello env vars' + Variable.get("S3_DOCKER_ENDPOINT"))
+    print('Hello env vars MY_S3_BUCKET ' + Variable.get("MY_S3_BUCKET"))
+    print('Hello env vars S3_ENDPOINT ' + Variable.get("S3_ENDPOINT"))
+    print('Hello env vars VIN_S3_BUCKET ' + Variable.get("VIN_S3_BUCKET"))
 
 dag = DAG('helloenvvars', description='Hello World DAG',
           schedule_interval='0 12 * * *',
