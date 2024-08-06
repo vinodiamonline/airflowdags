@@ -2,7 +2,7 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
-
+import os 
 
 def print_hello():
     print('Hello env vars MY_S3_BUCKET ' + Variable.get("MY_S3_BUCKET"))
