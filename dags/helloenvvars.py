@@ -8,8 +8,8 @@ def print_hello():
     print('Hello env vars MY_S3_BUCKET ' + Variable.get("MY_S3_BUCKET"))
     print('Hello env vars S3_ENDPOINT ' + Variable.get("S3_ENDPOINT"))
     print('Hello env vars VIN_S3_BUCKET ' + Variable.get("VIN_S3_BUCKET"))
-    print('Hello env vars AWS_S3_ACCESS_KEY ' + Variable.get("AWS_S3_ACCESS_KEY"))
-    print('Hello env vars AWS_S3_END_POINT ' + Variable.get("AWS_S3_END_POINT"))
+    print('Hello env vars AWS_S3_ACCESS_KEY ' + os.getenv("AWS_S3_ACCESS_KEY"))
+    print('Hello env vars AWS_S3_END_POINT ' + os.getenv("AWS_S3_END_POINT"))
 
 dag = DAG('helloenvvars', description='Hello World DAG',
           schedule_interval='0 12 * * *',
