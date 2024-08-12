@@ -93,7 +93,7 @@
     "conn_id": "kubernetes_default",
     "kube_config_file": null,
     "cluster_context": null,
-    "imagePullSecrets": ["regcred"],
-    "image_pull_secrets": null
+    "imagePullSecrets": [],
+    "image_pull_secrets": []
   }
 }
