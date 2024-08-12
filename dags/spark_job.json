@@ -8,14 +8,14 @@
       "namespace": "ds"
     },
     "spec": {
-      "type": "scala",
+      "type": "Python",
+      "pythonVersion": "3",
       "mode": "cluster",
-      "sparkVersion": "3.5.1",
+      "sparkVersion": "3.0.0",
       "successfulRunHistoryLimit": 1,
       "restartPolicy": {
         "type": "Never"
       },
-      "image":"etlspeechtime:1.0.0",
       "imagePullPolicy": "Always",
       "hadoopConf": {},
       "imagePullSecrets": [],
