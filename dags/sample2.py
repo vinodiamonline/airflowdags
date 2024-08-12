@@ -46,7 +46,7 @@ dag = DAG(
     tags=['example']
 )
 
-submit = SparkKubernetesOperator(
+task = SparkKubernetesOperator(
     task_id='spark_transform_data',
     namespace='spark-operator',
     application_file='/kubernetes/spark-pi.yaml',
@@ -54,4 +54,4 @@ submit = SparkKubernetesOperator(
     do_xcom_push=True,
 )
 
-submit
+task
