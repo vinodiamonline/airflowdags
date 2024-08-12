@@ -15,7 +15,7 @@ default_args = {
 
 # Define the DAG
 with DAG(
-    'spark_kubernetes_example',
+    'sample1',
     default_args=default_args,
     description='A DAG to submit a Spark job to Kubernetes',
     schedule_interval=None,
@@ -23,8 +23,8 @@ with DAG(
     catchup=False,
 ) as dag:
 
-    SparkKubernetesOperator(
-    task_id="spark_task",
+    spark_job=SparkKubernetesOperator(
+    task_id="sample1",
     image="gcr.io/spark-operator/spark-py:v3.1.1",  # OR custom image using that
     code_path="local://path/to/spark/code.py",
     application_file="spark_job_template.json",  # OR spark_job_template.json
