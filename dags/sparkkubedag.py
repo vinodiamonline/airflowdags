@@ -26,7 +26,7 @@ with DAG(
     # Define the SparkKubernetesOperator
     spark_job = SparkKubernetesOperator(
         task_id='spark_kubernetes_task',
-        application_file='./dags/repo/dags/application.yaml',  # Path to the Kubernetes application YAML file
+        application_file='./dags/repo/dags/spark_job.json',  # Path to the Kubernetes application YAML file
         namespace='default',  # Kubernetes namespace
         cluster_manager='kubernetes',
         # Specify additional Spark configurations as needed
