@@ -15,7 +15,7 @@ task = SparkSubmitOperator(
  application_args=['admin', 'password', 'http://host.docker.internal:9000', 's3a://warehouse/micrawdata1', 's3a://warehouse/tbl_engagement_speech_silver', '3456000'],
  conn_id='kind-spark',
  verbose=True,
- packages='io.delta:delta-spark_2.12:3.1.0', 'org.apache.hadoop:hadoop-aws:3.3.1',
+ packages='io.delta:delta-spark_2.12:3.1.0,org.apache.hadoop:hadoop-aws:3.3.1',
  queue = 'kubernetes',
  dag = dag
 )
