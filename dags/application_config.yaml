@@ -14,7 +14,8 @@ spark:
       type: Never
     imagePullPolicy: Always
     hadoopConf: {}
-    imagePullSecrets: []
+    imagePullSecrets: 
+      - name: regcred
     dynamicAllocation:
       enabled: false
       initialExecutors: 1
