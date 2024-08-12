@@ -23,19 +23,19 @@ with DAG(
     catchup=False,
 ) as dag:
 
-    # Define the SparkKubernetesOperator
-    spark_job = SparkKubernetesOperator(
-        task_id='spark_kubernetes_task',
-        application_file='./dags/repo/dags/spark_job.json',  # Path to the Kubernetes application YAML file
-        namespace='default',  # Kubernetes namespace
-        cluster_manager='kubernetes',
-        # Specify additional Spark configurations as needed
-        conf={
-            'spark.executor.memory': '4g',
-            'spark.executor.cores': '2',
-            'spark.driver.memory': '4g',
-        },
-    )
+# Define the SparkKubernetesOperator
+spark_job = SparkKubernetesOperator(
+    task_id='spark_kubernetes_task',
+    application_file='./dags/repo/dags/spark_job.json',  # Path to the Kubernetes application YAML file
+    namespace='default',  # Kubernetes namespace
+    cluster_manager='kubernetes',
+    # Specify additional Spark configurations as needed
+    conf={
+        'spark.executor.memory': '4g',
+        'spark.executor.cores': '2',
+        'spark.driver.memory': '4g',
+    },
+)
 
-    # Define the task sequence
-    spark_job
+# Define the task sequence
+spark_job
