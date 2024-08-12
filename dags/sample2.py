@@ -1,20 +1,3 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
 """
 This is an example DAG which uses SparkKubernetesOperator and SparkKubernetesSensor.
 In this example, we create two tasks which execute sequentially.
@@ -33,8 +16,9 @@ from airflow import DAG
 # Operators; we need this to operate!
 from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import SparkKubernetesOperator
 from airflow.providers.cncf.kubernetes.sensors.spark_kubernetes import SparkKubernetesSensor
+from airflow.providers.cncf.kubernetes.hooks.kubernetes import KubernetesHook
 from airflow.utils.dates import days_ago
-
+k8s_hook = KubernetesHook(conn_id='kubernetes_config')
 # [END import_module]
 
 # [START default_args]
@@ -48,7 +32,7 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'max_active_runs': 1,
-    'retries': 0
+    'retries': 3
 }
 # [END default_args]
 
@@ -56,29 +40,20 @@ default_args = {
 
 dag = DAG(
     'spark_pi',
+    start_date=days_ago(1),
     default_args=default_args,
     schedule_interval=timedelta(days=1),
     tags=['example']
 )
 
-# spark = open(
-#     "example_spark_kubernetes_operator_pi.yaml").read()
-
 submit = SparkKubernetesOperator(
-    task_id='spark_pi_submit',
-    namespace="sampletenant",
-    application_file="application_config.yaml",
-    kubernetes_conn_id="kubernetes_in_cluster",
+    task_id='spark_transform_data',
+    namespace='spark-operator',
+    application_file='/kubernetes/spark-pi.yaml',
+    kubernetes_conn_id='kubernetes_default',
     do_xcom_push=True,
-    dag=dag
 )
 
-sensor = SparkKubernetesSensor(
-    task_id='spark_pi_monitor',
-    namespace="sampletenant",
-    application_name="{{ task_instance.xcom_pull(task_ids='spark_pi_submit')['metadata']['name'] }}",
-    kubernetes_conn_id="kubernetes_in_cluster",
-    dag=dag
-)
 
-submit >> sensor
+
+submit
