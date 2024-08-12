@@ -24,10 +24,10 @@ with DAG(
 ) as dag:
 
     spark_job=SparkKubernetesOperator(
-    task_id="sample2",
-    application_file="application_config.yaml",
-    dag=dag,
-  )
+        task_id="sample2",
+        application_file="application_config.yaml",
+        dag=dag,
+    )
 
 # Define the task sequence
 spark_job
