@@ -94,6 +94,6 @@
     "kube_config_file": null,
     "cluster_context": null,
     "imagePullSecrets": ["regcred"],
-    "image_pull_secrets": ["regcred"]
+    "image_pull_secrets": null
   }
 }
