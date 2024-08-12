@@ -24,43 +24,11 @@ with DAG(
 ) as dag:
 
     spark_job = SparkKubernetesOperator(
-        task_id='spark_kubernetes_task',
-        application={
-            'apiVersion': 'spark.apache.org/v1beta2',
-            'kind': 'SparkApplication',
-            'metadata': {
-                'name': 'spark-kubernetes-inline-example',
-                'namespace': 'default',
-            },
-            'spec': {
-                'type': 'Scala',
-                'mode': 'cluster',
-                'image': 'spark:latest',
-                'mainClass': 'org.example.Main',
-                'sparkVersion': '3.2.0',
-                'restartPolicy': {
-                    'type': 'OnFailure',
-                },
-                'driver': {
-                    'cores': 1,
-                    'memory': '1g',
-                },
-                'executor': {
-                    'cores': 1,
-                    'instances': 2,
-                    'memory': '1g',
-                },
-                'applications': [
-                    {
-                        'name': 'example',
-                        'className': 'org.example.Main',
-                        'arguments': ['arg1', 'arg2'],
-                    },
-                ],
-            },
-        },
-        namespace='default',
-        cluster_manager='kubernetes',
+        task_id="spark_task",
+        image="gcr.io/spark-operator/spark-py:v3.1.1",  # OR custom image using that
+        code_path="local://path/to/spark/code.py",
+        application_file="spark_job.json",  # OR spark_job_template.json
+        dag=dag,
     )
 
 # Define the task sequence
