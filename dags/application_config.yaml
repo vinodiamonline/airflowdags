@@ -124,9 +124,8 @@ kubernetes:
   # - secret_2
   from_env_secret: []
 
-  imagePullSecrets: 
-      - name: regcred
-  image_pull_secrets:"regcred"
+  image_pull_secrets:
+    - name: regcred
   in_cluster: true
   conn_id: kubernetes_default
   kube_config_file: null
