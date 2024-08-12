@@ -26,7 +26,7 @@ with DAG(
     spark_job = SparkKubernetesOperator(
         task_id="spark_task",
         image="etlspeechtime:1.0.0",
-        image_pull_secrets="regcred",
+        image_pull_secrets=["regcred"],
         code_path="local://app/etlspeechtime.jar",
         application_file="application_config.yaml",
         dag=dag,
