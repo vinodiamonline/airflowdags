@@ -48,7 +48,7 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'max_active_runs': 1,
-    'retries': 3
+    'retries': 0
 }
 # [END default_args]
 
