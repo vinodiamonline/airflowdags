@@ -2,7 +2,7 @@ apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
   name: spark-pi1
-  namespace: default
+  namespace: airflow
 spec:
   type: Scala
   mode: cluster
@@ -13,11 +13,7 @@ spec:
   sparkVersion: "3.5.0"
   restartPolicy:
     type: Never
-  volumes:
-    - name: test-volume
-      hostPath:
-        path: "/minikube-host"
-        type: Directory
+  volumes:[]
   driver:
     cores: 1
     coreLimit: "1200m"
@@ -25,10 +21,8 @@ spec:
     labels:
       app: spark
       version: 3.5.0
-    serviceAccount: spark-operator-spark
-    volumeMounts:
-      - name: test-volume
-        mountPath: /mnt/spark/work
+    serviceAccount: spark
+    volumeMounts:[]
   executor:
     cores: 1
     instances: 4
@@ -36,7 +30,5 @@ spec:
     labels:
       app: spark
       version: 3.5.0
-    serviceAccount: spark-operator-spark
-    volumeMounts:
-      - name: test-volume
-        mountPath: /mnt/spark/work
+    serviceAccount: spark
+    volumeMounts:[]
