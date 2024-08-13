@@ -5,7 +5,7 @@ metadata:
   namespace: airflow
 spec:
   type: Scala
-  mode: client
+  mode: cluster
   image: "simplescala:1.0.0"
   imagePullPolicy: Always
   sparkVersion: "3.5.1"
