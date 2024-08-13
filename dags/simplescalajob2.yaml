@@ -5,7 +5,7 @@ metadata:
   namespace: airflow
 spec:
   type: Scala
-  mode: client
+  mode: cluster
   image: "vinodiamonline/simplescala:latest"
   imagePullPolicy: Always
   mainClass: "Main"
