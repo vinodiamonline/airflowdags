@@ -8,8 +8,8 @@ spec:
   mode: client
   image: "vinodiamonline/simplescala:latest"
   imagePullPolicy: Always
-  mainClass: "speech"
-  mainApplicationFile: "local:///opt/airflow/etlspeechtime-assembly-0.1.0-SNAPSHOT.jar"
+  mainClass: "Main"
+  mainApplicationFile: "local:///app/simplescala.jar"
   sparkVersion: "3.5.1"
   driver:
     cores: 1
