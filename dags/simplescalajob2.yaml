@@ -8,8 +8,8 @@ spec:
   mode: client
   image: "vinodiamonline/simplescala:latest"
   imagePullPolicy: IfNotPresent
-  mainClass: "org.apache.spark.examples.SparkPi"
-  mainApplicationFile: "spark-examples_2.12-3.5.1.jar"
+  mainClass: "Main"
+  mainApplicationFile: "simplescala.jar"
   sparkVersion: "3.5.1"
   driver:
     cores: 1
