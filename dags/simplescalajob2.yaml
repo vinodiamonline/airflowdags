@@ -9,7 +9,7 @@ spec:
   image: "vinodiamonline/simplescala:latest"
   imagePullPolicy: Always
   mainClass: "speech"
-  mainApplicationFile: "etlspeechtime-assembly-0.1.0-SNAPSHOT.jar"
+  mainApplicationFile: "local:///opt/airflow/etlspeechtime-assembly-0.1.0-SNAPSHOT.jar"
   sparkVersion: "3.5.1"
   driver:
     cores: 1
