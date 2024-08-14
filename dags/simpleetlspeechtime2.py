@@ -34,7 +34,7 @@ def print_hello():
     print('Hello ' + S3_ENDPOINT)
     print('Hello world from first Airflow DAG!')
     
-hello = PythonOperator(task_id='hello_k8s', python_callable=print_hello, dag=dag)
+
 
 # Define the DAG
 with DAG(
@@ -45,6 +45,7 @@ with DAG(
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
+    hello = PythonOperator(task_id='hello_k8s', python_callable=print_hello)
     spark_job=KubernetesPodOperator(
     task_id="simpleetlspeechtime2",
     image="etlspeechtime:1.0.1",
