@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import SparkKubernetesOperator
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesOperator
 from airflow.utils.dates import days_ago
 from datetime import timedelta
 
@@ -22,10 +22,10 @@ with DAG(
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
-    spark_job=SparkKubernetesOperator(
+    spark_job=KubernetesPodOperator(
     task_id="simplescalajob",
-    application_file="simplescalajob.yaml"
-  )
-
+    image="vinodiamonline/simplescala:latest"
+)
+    
 # Define the task sequence
 spark_job
