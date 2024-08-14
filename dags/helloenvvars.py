@@ -11,6 +11,7 @@ def print_hello():
     print('Hello env vars AWS_S3_ACCESS_KEY ' + os.getenv("AWS_S3_ACCESS_KEY"))
     print('Hello env vars AWS_S3_SECRET_KEY ' + os.getenv("AWS_S3_SECRET_KEY"))
     print('Hello env vars AWS_S3_END_POINT ' + os.getenv("AWS_S3_END_POINT"))
+    print('Hello env vars AWS_S3_ENDPOINT ' + os.getenv("AWS_S3_ENDPOINT"))
     print('Hello env vars AWS_1 ' + Variable.get("AWS_1"))
 
 
