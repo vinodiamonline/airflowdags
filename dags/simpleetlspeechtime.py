@@ -25,6 +25,8 @@ with DAG(
     spark_job=KubernetesPodOperator(
     task_id="simpleetlspeechtime",
     image="etlspeechtime:1.0.1"
+    cmds=["spark-submit"],
+    arguments=["--class", "speech", "--master", "local[*]", "etlspeechtime.jar", "admin", "password", "http://host.docker.internal:9000", "s3a://warehouse/micrawdata3", "s3a://warehouse/tbl_engagement_speech_silver", "3456000"]
 )
     
 # Define the task sequence
