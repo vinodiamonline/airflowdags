@@ -24,7 +24,7 @@ with DAG(
 ) as dag:
     spark_job=KubernetesPodOperator(
     task_id="simpleetlspeechtime",
-    image="etlspeechtime:1.0.0"
+    image="etlspeechtime:1.0.1"
 )
     
 # Define the task sequence
