@@ -24,7 +24,7 @@ with DAG(
 ) as dag:
     spark_job=SparkKubernetesOperator(
     task_id="simplescalajob",
-    application_file="simplescalajob1.yaml"
+    application_file="simplescalajob.yaml"
   )
 
 # Define the task sequence
