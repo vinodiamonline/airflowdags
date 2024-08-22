@@ -14,7 +14,7 @@ sparkclusterpi = SparkSubmitOperator(
  task_id='sparkclusterpi',
  application='/opt/bitnami/spark/examples/jars/spark-examples_2.12-3.5.2.jar',
  java_class='org.apache.spark.examples.SparkPi',
- conn_id='kind-spark',
+ conn_id='kind-spark-cluster',
  dag = dag
 )
 
