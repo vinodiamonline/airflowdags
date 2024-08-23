@@ -12,11 +12,14 @@ spec:
   sparkVersion: 3.5.2
   restartPolicy:
     type: Never
+  labels: {}
   driver:
     cores: 1
     memory: 1g
+    labels: {}
   executor:
     cores: 1
     memory: 1g
     instances: 2
+    labels: {}
     
