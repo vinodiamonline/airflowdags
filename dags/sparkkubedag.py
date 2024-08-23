@@ -26,7 +26,7 @@ with DAG(
         task_id="spark_task",
         namespace='airflow',
         application_file='application_config.yaml',
-        kubernetes_conn_id='kind-spark-cluster',
+        kubernetes_conn_id='kind-spark',
 )
 
 # Define the task sequence
