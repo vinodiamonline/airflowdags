@@ -5,7 +5,7 @@ metadata:
   namespace: airflow
 spec:
   type: Scala
-  mode: client
+  mode: cluster
   image: docker.io/bitnami/spark:3.5.2-debian-12-r0
   imagePullPolicy: Always
   mainApplicationFile: local:///opt/bitnami/spark/examples/jars/spark-examples_2.12-3.5.2.jar  # Path to the JAR file in the Docker image
