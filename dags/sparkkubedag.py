@@ -24,7 +24,7 @@ with DAG(
 ) as dag:
     spark_job = SparkKubernetesOperator(
         task_id="spark_task",
-        namespace='spark',
+        namespace='airflow',
         application_file='application_config.yaml',
         kubernetes_conn_id='kind-spark-cluster',
 )
