@@ -22,4 +22,5 @@ spec:
     memory: 1g
     instances: 2
     labels: {}
+  mainClass: org.apache.spark.examples.SparkPi
     
