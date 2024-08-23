@@ -22,15 +22,13 @@ with DAG(
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
-
     spark_job = SparkKubernetesOperator(
         task_id="spark_task",
-        image="etlspeechtime:1.0.0",
-        image_pull_secrets=["regcred"],
-        code_path="local://app/etlspeechtime.jar",
-        application_file="application_config.yaml",
-        dag=dag,
+        namespace='spark',  # Kubernetes namespace where Spark resources are deployed
+        application_file='application_config.yaml',
+        conn_id='kind-spark-cluster'
     )
 
 # Define the task sequence
 spark_job
+
