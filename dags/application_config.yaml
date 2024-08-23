@@ -17,6 +17,7 @@ spec:
     cores: 1
     memory: 1g
     labels: {}
+    serviceAccount: airflow-scheduler
   executor:
     cores: 1
     memory: 1g
