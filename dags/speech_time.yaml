@@ -20,12 +20,6 @@ spec:
     labels: {}
     serviceAccount: spark-operator-spark
     env:
-      - name: S3_ACCESS_KEY
-        value: "{{ S3_ACCESS_KEY }}"
-      - name: S3_SECRET_KEY
-        value: "{{ S3_SECRET_KEY }}"
-      - name: S3_ENDPOINT
-        value: "{{ S3_ENDPOINT }}"
       - name: BRONZE_TABLE_PATH
         value: "{{ BRONZE_TABLE_PATH }}"
       - name: SILVER_TABLE_PATH
@@ -38,12 +32,6 @@ spec:
     instances: 2
     labels: {}
     env:
-      - name: S3_ACCESS_KEY
-        value: "{{ S3_ACCESS_KEY }}"
-      - name: S3_SECRET_KEY
-        value: "{{ S3_SECRET_KEY }}"
-      - name: S3_ENDPOINT
-        value: "{{ S3_ENDPOINT }}"
       - name: BRONZE_TABLE_PATH
         value: "{{ BRONZE_TABLE_PATH }}"
       - name: SILVER_TABLE_PATH
