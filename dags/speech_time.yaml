@@ -6,7 +6,7 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: docker.io/library/etlspeechtime:1.0.8
+  image: docker.io/apache/spark:3.5.2
   imagePullPolicy: Always
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
   mainClass: speech
