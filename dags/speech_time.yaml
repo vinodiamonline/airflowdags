@@ -9,7 +9,7 @@ spec:
   image: etlspeechtime:1.1.1
   imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
-  mainClass: speech
+  mainClass: {{ CLASS }}
   sparkVersion: 3.5.2
   restartPolicy:
     type: Never
