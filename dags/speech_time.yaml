@@ -24,10 +24,3 @@ spec:
     memory: 2g
     instances: 2
     labels: {}
-  arguments:
-    - "{{ params.S3.ACCESS_KEY }}"
-    - password
-    - http://host.docker.internal:9000
-    - s3a://warehouse/micrawdata3
-    - s3a://warehouse/tbl_engagement_speech_silver
-    - '7776000'
