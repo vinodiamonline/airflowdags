@@ -25,7 +25,7 @@ spec:
     instances: 2
     labels: {}
   arguments:
-    - admin
+    - "{{ params.S3.ACCESS_KEY }}"
     - password
     - http://host.docker.internal:9000
     - s3a://warehouse/micrawdata3
