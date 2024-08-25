@@ -45,11 +45,7 @@ with DAG(
         namespace='airflow',
         application_file='speech_time.yaml',
         kubernetes_conn_id='kind-spark-cluster',
-        params={
-            "S3_ACCESS_KEY": S3_ACCESS_KEY,
-            "S3_SECRET_KEY": S3_SECRET_KEY,
-            "S3_ENDPOINT": S3_ENDPOINT
-        }
+        arguments=[S3_ACCESS_KEY, "password", "http://host.docker.internal:9000", "s3a://warehouse/micrawdata3", "s3a://warehouse/tbl_engagement_speech_silver", "7776000"]
 )
 
 # Define the task sequence
