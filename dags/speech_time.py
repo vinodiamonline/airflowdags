@@ -48,4 +48,5 @@ with DAG(
 )
 
 # Define the task sequence
-print_envvars >> spark_job
+# print_envvars >> spark_job
+spark_job
