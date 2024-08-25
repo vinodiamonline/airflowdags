@@ -6,10 +6,10 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: docker.io/apache/spark:3.5.2
-  imagePullPolicy: IfNotPresent
-  mainApplicationFile: local:///opt/spark/examples/jars/spark-examples_2.12-3.5.2.jar
-  mainClass: org.apache.spark.examples.SparkPi
+  image: docker.io/library/etlspeechtime
+  imagePullPolicy: Always
+  mainApplicationFile: local:///app/etlspeechtime.jar
+  mainClass: speech
   sparkVersion: 3.5.2
   restartPolicy:
     type: Never
