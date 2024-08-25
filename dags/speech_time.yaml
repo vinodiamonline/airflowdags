@@ -19,8 +19,34 @@ spec:
     memory: 2g
     labels: {}
     serviceAccount: spark-operator-spark
+    env:
+      - name: S3_ACCESS_KEY
+        value: "{{ S3_ACCESS_KEY }}"
+      - name: S3_SECRET_KEY
+        value: "{{ S3_SECRET_KEY }}"
+      - name: S3_ENDPOINT
+        value: "{{ S3_ENDPOINT }}"
+      - name: BRONZE_TABLE_PATH
+        value: "{{ BRONZE_TABLE_PATH }}"
+      - name: SILVER_TABLE_PATH
+        value: "{{ SILVER_TABLE_PATH }}"
+      - name: TIME_WINDOW_IN_SECS
+        value: "{{ TIME_WINDOW_IN_SECS }}"
   executor:
     cores: 1
     memory: 2g
     instances: 2
     labels: {}
+    env:
+      - name: S3_ACCESS_KEY
+        value: "{{ S3_ACCESS_KEY }}"
+      - name: S3_SECRET_KEY
+        value: "{{ S3_SECRET_KEY }}"
+      - name: S3_ENDPOINT
+        value: "{{ S3_ENDPOINT }}"
+      - name: BRONZE_TABLE_PATH
+        value: "{{ BRONZE_TABLE_PATH }}"
+      - name: SILVER_TABLE_PATH
+        value: "{{ SILVER_TABLE_PATH }}"
+      - name: TIME_WINDOW_IN_SECS
+        value: "{{ TIME_WINDOW_IN_SECS }}"
