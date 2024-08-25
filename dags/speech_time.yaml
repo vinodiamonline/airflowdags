@@ -25,7 +25,7 @@ spec:
     instances: 2
     labels: {}
   arguments:
-    - admin
+    - printenv AWS_S3_ACCESS_KEY
     - password
     - http://host.docker.internal:9000
     - s3a://warehouse/micrawdata3
