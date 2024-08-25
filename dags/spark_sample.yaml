@@ -17,7 +17,7 @@ spec:
     cores: 1
     memory: 1g
     labels: {}
-    serviceAccount: spark
+    serviceAccount: spark-operator
   executor:
     cores: 1
     memory: 1g
