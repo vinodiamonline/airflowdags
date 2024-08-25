@@ -8,7 +8,7 @@ spec:
   mode: cluster
   image: docker.io/library/etlspeechtime:1.0.4
   imagePullPolicy: IfNotPresent
-  mainApplicationFile: local:///app/etlspeechtime.jar
+  mainApplicationFile: local:///opt/spark/work-dir/etlspeechtime.jar
   mainClass: speech
   sparkVersion: 3.5.2
   restartPolicy:
