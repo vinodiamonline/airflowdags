@@ -19,25 +19,11 @@ spec:
     memory: 2g
     labels: {}
     serviceAccount: spark-operator-spark
-    env:
-      - name: BRONZE_TABLE_PATH
-        value: "{{ BRONZE_TABLE_PATH }}"
-      - name: SILVER_TABLE_PATH
-        value: "{{ SILVER_TABLE_PATH }}"
-      - name: TIME_WINDOW_IN_SECS
-        value: "{{ TIME_WINDOW_IN_SECS }}"
   executor:
     cores: 1
     memory: 2g
     instances: 2
     labels: {}
-    env:
-      - name: BRONZE_TABLE_PATH
-        value: "{{ BRONZE_TABLE_PATH }}"
-      - name: SILVER_TABLE_PATH
-        value: "{{ SILVER_TABLE_PATH }}"
-      - name: TIME_WINDOW_IN_SECS
-        value: "{{ TIME_WINDOW_IN_SECS }}"
   arguments:
     - admin
     - password
