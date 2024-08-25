@@ -39,7 +39,7 @@ with DAG(
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
-    print_envvars = PythonOperator(task_id='print_envvars', python_callable=print_envvars)
+    # print_envvars = PythonOperator(task_id='print_envvars', python_callable=print_envvars)
     spark_job = SparkKubernetesOperator(
         task_id="speech_time",
         namespace='airflow',
