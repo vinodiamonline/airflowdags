@@ -7,7 +7,7 @@ spec:
   type: Scala
   mode: cluster
   image: verboistim/spark:3.5.1-debian-12-r7-bugfix
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/bitnami/spark/examples/jars/spark-examples_2.12-3.5.1.jar  # Path to the JAR file in the Docker image
   sparkVersion: 3.5.1
   restartPolicy:
