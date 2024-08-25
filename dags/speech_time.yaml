@@ -7,7 +7,7 @@ spec:
   type: Scala
   mode: cluster
   image: etlspeechtime:1.0.2
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotExists
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
   mainClass: speech
   sparkVersion: 3.5.2
