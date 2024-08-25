@@ -25,7 +25,7 @@ spec:
     instances: 2
     labels: {}
   arguments:
-    - {{ env["AWS_ACCESS_KEY"] }}
+    - "${AWS_ACCESS_KEY}"
     - password
     - http://host.docker.internal:9000
     - s3a://warehouse/micrawdata3
