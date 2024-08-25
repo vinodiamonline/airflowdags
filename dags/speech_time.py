@@ -44,6 +44,7 @@ with DAG(
         task_id="speech_time",
         namespace='airflow',
         application_file='speech_time.yaml',
+        application_args=[S3_ACCESS_KEY, S3_SECRET_KEY, S3_ENDPOINT, BRONZE_TABLE_PATH, SILVER_TABLE_PATH, TIME_WINDOW_IN_SECS],
         kubernetes_conn_id='kind-spark-cluster'
 )
 
