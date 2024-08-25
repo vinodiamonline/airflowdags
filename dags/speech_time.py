@@ -19,9 +19,9 @@ default_args = {
 S3_ACCESS_KEY=os.getenv("AWS_S3_ACCESS_KEY")
 S3_SECRET_KEY=os.getenv("AWS_S3_SECRET_KEY")
 S3_ENDPOINT=os.getenv("AWS_S3_END_POINT")
-BRONZE_TABLE_PATH='s3a://connect-analytics-platform/dl_engagement_bronze/'
-SILVER_TABLE_PATH='s3a://connect-analytics-platform/dl_engagement_speech_silver_1'
-TIME_WINDOW_IN_SECS='86400'
+BRONZE_TABLE_PATH='s3a://warehouse/micrawdata1'
+SILVER_TABLE_PATH='s3a://warehouse/tbl_engagement_speech_silver'
+TIME_WINDOW_IN_SECS='3456000'
 CLASSNAME="speech"
 JARPATH="etlspeechtime.jar"
 
