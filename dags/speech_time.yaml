@@ -16,11 +16,11 @@ spec:
   labels: {}
   driver:
     cores: 1
-    memory: 1g
+    memory: 2g
     labels: {}
     serviceAccount: spark-operator-spark
   executor:
     cores: 1
-    memory: 1g
+    memory: 2g
     instances: 2
     labels: {}
