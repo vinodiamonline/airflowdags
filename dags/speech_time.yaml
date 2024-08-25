@@ -9,7 +9,7 @@ spec:
   image: etlspeechtime:1.1.1
   imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
-  mainClass: {{ CLASSNAME }}
+  mainClass: speech
   sparkVersion: 3.5.2
   restartPolicy:
     type: Never
@@ -25,7 +25,7 @@ spec:
     instances: 2
     labels: {}
   arguments:
-    - admin
+    - {{ env["AWS_ACCESS_KEY"] }}
     - password
     - http://host.docker.internal:9000
     - s3a://warehouse/micrawdata3
