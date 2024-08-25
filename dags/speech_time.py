@@ -23,12 +23,11 @@ BRONZE_TABLE_PATH='s3a://warehouse/micrawdata1'
 SILVER_TABLE_PATH='s3a://warehouse/tbl_engagement_speech_silver'
 TIME_WINDOW_IN_SECS='3456000'
 CLASSNAME="speech"
-JARPATH="etlspeechtime.jar"
 
 def print_envvars():
     print("Hello etl speech time!")
     print("S3_ACCESS_KEY length = " + str(len(S3_ACCESS_KEY)))
-    print("S3_SECRET_KEY length =  " + str(len(S3_ACCESS_KEY)))
+    print("S3_SECRET_KEY length =  " + str(len(S3_SECRET_KEY)))
     print("S3_ENDPOINT = " + S3_ENDPOINT)
    
 # Define the DAG
