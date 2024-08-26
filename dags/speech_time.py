@@ -16,13 +16,13 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-S3_ACCESS_KEY=os.getenv("AWS_S3_ACCESS_KEY")
-S3_SECRET_KEY=os.getenv("AWS_S3_SECRET_KEY")
-S3_ENDPOINT=os.getenv("AWS_S3_END_POINT")
-BRONZE_TABLE_PATH='s3a://warehouse/micrawdata1'
-SILVER_TABLE_PATH='s3a://warehouse/tbl_engagement_speech_silver'
-TIME_WINDOW_IN_SECS='3456000'
-CLASSNAME="speech"
+# S3_ACCESS_KEY=os.getenv("AWS_S3_ACCESS_KEY")
+# S3_SECRET_KEY=os.getenv("AWS_S3_SECRET_KEY")
+# S3_ENDPOINT=os.getenv("AWS_S3_END_POINT")
+# BRONZE_TABLE_PATH='s3a://warehouse/micrawdata1'
+# SILVER_TABLE_PATH='s3a://warehouse/tbl_engagement_speech_silver'
+# TIME_WINDOW_IN_SECS='3456000'
+# CLASSNAME="speech"
 
 def print_envvars():
     print("Hello etl speech time!")
@@ -48,8 +48,9 @@ with DAG(
         application_file='speech_time.yaml',
         kubernetes_conn_id='kind-spark-cluster',
         params={
-        "admin": "adminsaSasaS",
-        "password": "passwordasdadasd"
+        "S3_ACCESS_KEY": os.getenv("AWS_S3_ACCESS_KEY"),
+        "S3_SECRET_KEY": os.getenv("AWS_S3_SECRET_KEY"),
+        "S3_END_POINT": os.getenv("AWS_S3_END_POINT")
     }
 )
 
