@@ -48,8 +48,8 @@ with DAG(
         application_file='speech_time.yaml',
         kubernetes_conn_id='kind-spark-cluster',
         params={
-        "admin": "admin",
-        "password": "password"
+        "admin": "adminsaSasaS",
+        "password": "passwordasdadasd"
     }
 )
 
