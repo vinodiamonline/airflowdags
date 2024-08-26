@@ -31,6 +31,8 @@ def print_envvars():
     print("S3_ENDPOINT = " + S3_ENDPOINT)
    
 # Define the DAG
+# arguments=["admin", "password", "http://host.docker.internal:9000", "s3a://warehouse/micrawdata3", "s3a://warehouse/tbl_engagement_speech_silver", "7776000"],
+
 with DAG(
     'speech_time',
     default_args=default_args,
@@ -45,7 +47,10 @@ with DAG(
         namespace='airflow',
         application_file='speech_time.yaml',
         kubernetes_conn_id='kind-spark-cluster',
-        arguments=["admin", "password", "http://host.docker.internal:9000", "s3a://warehouse/micrawdata3", "s3a://warehouse/tbl_engagement_speech_silver", "7776000"]
+        params={
+        "admin": "admin",
+        "password": "password"
+    }
 )
 
 # Define the task sequence
