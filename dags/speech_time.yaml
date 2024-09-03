@@ -29,5 +29,5 @@ spec:
     - {{ params.S3_SECRET_KEY }}
     - {{ params.S3_END_POINT }}
     - s3a://warehouse/micrawdata3
-    - s3a://warehouse/dl_engagement_speech_silver_5
+    - s3a://warehouse/tbl_engagement_speech_silver
     - '7776000'
