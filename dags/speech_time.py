@@ -16,23 +16,6 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-# S3_ACCESS_KEY=os.getenv("AWS_S3_ACCESS_KEY")
-# S3_SECRET_KEY=os.getenv("AWS_S3_SECRET_KEY")
-# S3_ENDPOINT=os.getenv("AWS_S3_END_POINT")
-# BRONZE_TABLE_PATH='s3a://warehouse/micrawdata1'
-# SILVER_TABLE_PATH='s3a://warehouse/tbl_engagement_speech_silver'
-# TIME_WINDOW_IN_SECS='3456000'
-# CLASSNAME="speech"
-
-# def print_envvars():
-#     print("Hello etl speech time!")
-#     print("S3_ACCESS_KEY length = " + str(len(S3_ACCESS_KEY)))
-#     print("S3_SECRET_KEY length =  " + str(len(S3_SECRET_KEY)))
-#     print("S3_ENDPOINT = " + S3_ENDPOINT)
-   
-# Define the DAG
-# arguments=["admin", "password", "http://host.docker.internal:9000", "s3a://warehouse/micrawdata3", "s3a://warehouse/tbl_engagement_speech_silver", "7776000"],
-
 with DAG(
     'speech_time',
     default_args=default_args,
