@@ -20,7 +20,7 @@ with DAG(
     'speech_time',
     default_args=default_args,
     description='A DAG to calculate etl_speech_time',
-    schedule_interval='None', # '@hourly',  # Runs every hour
+    schedule_interval=None, # '@hourly',  # Runs every hour
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
