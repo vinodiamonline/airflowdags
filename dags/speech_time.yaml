@@ -6,7 +6,7 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: etlspeechtime:1.0.7
+  image: etlspeechtime:2.0.0
   imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
   mainClass: speech
