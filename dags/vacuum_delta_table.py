@@ -36,7 +36,7 @@ dag = DAG('vacuum_delta_table', description='Vacuum delta table from DAG',
 
 vacuum_table = PythonOperator(
     task_id='vacuum_delta_table', 
-    python_callable=vacuum_table
+    python_callable=vacuum_table,
     dag=dag
     )
 
