@@ -30,12 +30,19 @@ def vacuum_table():
     
     spark.createDataFrame(data, columns).show()
 
-    pathToTable = "s3a://warehouse/color_10/"
 
-    deltaTable = DeltaTable.forPath(spark, pathToTable)  # path-based tables, or
-
-    deltaTable.vacuum()
-
+    # Path to your Delta table
+    delta_table_path = "s3a://warehouse/color_10/"
+    
+    # Perform the vacuum operation
+    # Note: Retain old files for 7 days (you can adjust this value as needed)
+    retention_hours = 168  # 7 days in hours
+    
+    spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
+    
+    # Stop the Spark session
+    spark.stop()
+    
     print('Done!!!')
 
 
