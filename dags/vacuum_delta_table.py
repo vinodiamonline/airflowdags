@@ -2,7 +2,6 @@ from airflow import DAG
 from datetime import datetime
 from airflow.operators.python_operator import PythonOperator
 from pyspark.sql import SparkSession
-from delta.tables import *
 
 def vacuum_table():
     print('Hello from spark!')
