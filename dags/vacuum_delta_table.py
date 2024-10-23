@@ -31,7 +31,7 @@ def vacuum_table():
 
 
 dag = DAG('vacuum_delta_table', description='Vacuum delta table from DAG',
-          schedule_interval='0 12 * * *',
+          schedule_interval=None, # '@hourly',  # Runs every hour
           start_date=datetime(2024, 1, 1), catchup=False)
 
 vacuum_table = PythonOperator(
