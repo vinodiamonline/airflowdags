@@ -18,27 +18,16 @@ def vacuum_table():
         .config("spark.hadoop.fs.s3a.path.style.access", "true") \
         .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
         .getOrCreate()
-       
-    data = [
-        ("Alice", 34),
-        ("Bob", 45),
-        ("Cathy", 29),
-        ("David", 40)
-    ]
-    columns = ["Name", "Age"]
     
-    spark.createDataFrame(data, columns).show()
-
-
     # Path to your Delta table
     delta_table_path = "s3a://warehouse/color_10/"
     
     # Perform the vacuum operation
     # Note: Retain old files for 7 days (you can adjust this value as needed)
-    retention_hours = 168  # 7 days in hours
+    retention_hours = 1  # 7 days in hours
     
-    # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
-    spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
+    spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
+    # spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
     
     # Stop the Spark session
     spark.stop()
