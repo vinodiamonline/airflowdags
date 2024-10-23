@@ -12,7 +12,6 @@ def vacuum_table():
         .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0") \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
         .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
         .config("spark.hadoop.fs.s3a.access.key", "admin") \
         .config("spark.hadoop.fs.s3a.secret.key", "password") \
         .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
@@ -39,7 +38,7 @@ def vacuum_table():
     retention_hours = 168  # 7 days in hours
     
     # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
-    spark.sql(f"VACUUM db_delta.`/warehouse/color_10/` RETAIN 1 HOURS")
+    spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
     
     # Stop the Spark session
     spark.stop()
