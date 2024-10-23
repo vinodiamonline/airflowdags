@@ -38,7 +38,8 @@ def vacuum_table():
     # Note: Retain old files for 7 days (you can adjust this value as needed)
     retention_hours = 168  # 7 days in hours
     
-    spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
+    # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
+    spark.sql(f"VACUUM db_delta.`/warehouse/color_10/` RETAIN 1 HOURS")
     
     # Stop the Spark session
     spark.stop()
