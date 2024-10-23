@@ -30,6 +30,9 @@ def vacuum_table():
     # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
     # spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
 
+    df = spark.read.format("delta").load(delta_table_path)
+    df.printSchema()
+
     deltaTable = DeltaTable.forPath(spark, delta_table_path)
     
     # Stop the Spark session
