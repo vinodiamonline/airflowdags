@@ -2,6 +2,7 @@ from airflow import DAG
 from datetime import datetime
 from airflow.operators.python_operator import PythonOperator
 from pyspark.sql import SparkSession
+from delta.tables import *
 
 def vacuum_table():
     print('Hello from spark!')
@@ -26,8 +27,10 @@ def vacuum_table():
     # Note: Retain old files for 7 days (you can adjust this value as needed)
     retention_hours = 1  # 7 days in hours
     
-    spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
+    # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
     # spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
+
+    deltaTable = DeltaTable.forPath(spark, delta_table_path)
     
     # Stop the Spark session
     spark.stop()
