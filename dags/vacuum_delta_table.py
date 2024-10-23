@@ -10,8 +10,9 @@ def vacuum_table():
     spark = SparkSession.builder \
         .appName("vacuum_delta_table") \
         .master("local[*]") \
-        .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0") \
+        .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.1.0") \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
+        .config("spark.jars.packages", "com.amazonaws:aws-java-sdk-bundle:1.11.1026") \
         .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
         .config("spark.hadoop.fs.s3a.access.key", "admin") \
         .config("spark.hadoop.fs.s3a.secret.key", "password") \
