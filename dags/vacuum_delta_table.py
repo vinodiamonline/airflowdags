@@ -2,6 +2,7 @@ from airflow import DAG
 from datetime import datetime
 from airflow.operators.python_operator import PythonOperator
 from pyspark.sql import SparkSession
+from delta.tables import *
 
 def vacuum_table():
     print('Hello from spark!')
@@ -26,7 +27,16 @@ def vacuum_table():
         ("David", 40)
     ]
     columns = ["Name", "Age"]
+    
     spark.createDataFrame(data, columns).show()
+
+    pathToTable = "s3a://warehouse/color_10/"
+
+    deltaTable = DeltaTable.forPath(spark, pathToTable)  # path-based tables, or
+
+    deltaTable.vacuum()
+
+    print('Done!!!')
 
 
 dag = DAG('vacuum_delta_table', description='Vacuum delta table from DAG',
