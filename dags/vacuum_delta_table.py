@@ -8,12 +8,11 @@ def vacuum_table():
     print('Hello from spark!')
 
     spark = SparkSession.builder \
-        .appName("vacuum_delta_table") \
+        .appName("k2d") \
         .master("local[*]") \
-        .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0") \
-        .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
-        .config("spark.jars.packages", "com.amazonaws:aws-java-sdk-bundle:1.11.1026") \
+        .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
         .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
         .config("spark.hadoop.fs.s3a.access.key", "admin") \
         .config("spark.hadoop.fs.s3a.secret.key", "password") \
         .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
@@ -28,13 +27,7 @@ def vacuum_table():
     # Note: Retain old files for 7 days (you can adjust this value as needed)
     retention_hours = 1  # 7 days in hours
     
-    # spark.sql(f"VACUUM '{delta_table_path}' RETAIN {retention_hours} HOURS")
-    # spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 1 HOURS")
-
-    df = spark.read.format("delta").load(delta_table_path)
-    df.printSchema()
-
-    deltaTable = DeltaTable.forPath(spark, delta_table_path)
+    spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 168 HOURS")
     
     # Stop the Spark session
     spark.stop()
