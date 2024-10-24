@@ -22,11 +22,15 @@ def vacuum_table():
     S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
-    table_path = str(Variable.get("VACUUM_DELTA_TABLE_PATH"))
-    delta_table_path = table_path if len(table_path) > 0 else VACUUM_DELTA_TABLE_PATH
-    
-    retention = Variable.get("RETENTION_HOURS")
-    retention_hours = retention if retention > 0 else RETENTION_HOURS
+    delta_table_path = Variable.get("VACUUM_DELTA_TABLE_PATH", default_var=VACUUM_DELTA_TABLE_PATH)
+
+    # table_path = str(Variable.get("VACUUM_DELTA_TABLE_PATH"))
+    # delta_table_path = table_path if len(table_path) > 0 else VACUUM_DELTA_TABLE_PATH
+
+    # retention = Variable.get("RETENTION_HOURS")
+    # retention_hours = retention if retention > 0 else RETENTION_HOURS
+
+    retention_hours = Variable.get("RETENTION_HOURS", default_var=RETENTION_HOURS)
 
     # for testing
     logger.info(f"params {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT} {delta_table_path} {retention_hours}")
