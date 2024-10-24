@@ -15,7 +15,7 @@ def vacuum_table():
         .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
         .config("spark.hadoop.fs.s3a.access.key", "admin") \
         .config("spark.hadoop.fs.s3a.secret.key", "password") \
-        .config("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000") \
+        .config("spark.hadoop.fs.s3a.endpoint", "http://host.docker.internal:9000") \
         .config("spark.hadoop.fs.s3a.path.style.access", "true") \
         .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
         .getOrCreate()
