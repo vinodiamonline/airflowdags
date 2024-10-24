@@ -19,39 +19,47 @@ retention_check = "True"
 def vacuum_table():
     S3_ACCESS_KEY = os.getenv("AWS_S3_ACCESS_KEY"),
     S3_SECRET_KEY = os.getenv("AWS_S3_SECRET_KEY"),
-    S3_END_POINT = "http://host.docker.internal:9000" # os.getenv("AWS_S3_END_POINT")
+    S3_END_POINT = os.getenv("AWS_S3_END_POINT")
 
+    # for testing
+    logger.info("params ",
+                S3_ACCESS_KEY
+                + S3_SECRET_KEY
+                + S3_END_POINT
+                )
+    
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
 
-
         if(retention_hours < 168) :
             retention_check = "False"
+        try:
+            spark = SparkSession.builder \
+                .appName("vacuum") \
+                .master("local[*]") \
+                .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
+                .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+                .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+                .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+                .config("spark.hadoop.fs.s3a.aws.credentials.provider",
+                        "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
+                .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
+                .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
+                .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
+                .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
+                .getOrCreate()
 
-        spark = SparkSession.builder \
-            .appName("vacuum") \
-            .master("local[*]") \
-            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
-            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-            .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-            .config("spark.hadoop.fs.s3a.aws.credentials.provider",
-                    "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
-            .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
-            .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
-            .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
-            .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
-            .getOrCreate()
+            spark.sql(f'VACUUM delta.`{delta_table_path}` RETAIN {retention_hours} HOURS')
 
-        spark.sql(f'VACUUM delta.`{delta_table_path}` RETAIN {retention_hours} HOURS')
+            # for testing
+            spark.read.format("delta").load(delta_table_path).printSchema()
 
-        # for testing
-        spark.read.format("delta").load(delta_table_path).printSchema()
-
-        # Stop the Spark session
-        spark.stop()
-
-        logger.info("Vacuum complete!!!")
+        except Exception as e:
+            logger.info(f"An error occurred: {e}")
+        finally:
+            # Stop the Spark session
+            spark.stop()
+            logger.info("Vacuum complete!!!")
     else:
         logger.info("Invalid params ",
             len(S3_ACCESS_KEY)
