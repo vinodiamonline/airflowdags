@@ -91,7 +91,6 @@ with DAG(
     # Define Operator
     vacuum_table = PythonOperator(
         task_id='vacuum_delta_table',
-        namespace='airflow',
         python_callable=vacuum_table,
         dag=dag
     )
