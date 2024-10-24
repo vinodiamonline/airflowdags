@@ -13,26 +13,26 @@ import os
 logger = logging.getLogger(__name__)
 delta_table_path = "s3a://warehouse/color_10/"
 retention_hours = 168
-retention_check = "True"
+retention_check = "true"
 
 # Vacuum table Method
 def vacuum_table():
-    S3_ACCESS_KEY = os.getenv("AWS_S3_ACCESS_KEY"),
-    S3_SECRET_KEY = os.getenv("AWS_S3_SECRET_KEY"),
-    S3_END_POINT = os.getenv("AWS_S3_END_POINT")
+    S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY")),
+    S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY")),
+    S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
     # for testing
-    logger.info("params " 
-                + S3_ACCESS_KEY
+    logger.info("params ",
+                S3_ACCESS_KEY
                 + S3_SECRET_KEY
                 + S3_END_POINT
                 )
-    
+
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
 
-        if(retention_hours < 168) :
-            retention_check = "False"
+        if(retention_hours < 168) : # 7 days is default
+            retention_check = "false"
         try:
             spark = SparkSession.builder \
                 .appName("vacuum") \
@@ -61,10 +61,10 @@ def vacuum_table():
             spark.stop()
             logger.info("Vacuum complete!!!")
     else:
-        logger.info("Invalid params "
-            + len(S3_ACCESS_KEY)
-            + len(S3_SECRET_KEY)
-            + len(S3_END_POINT)
+        logger.info("Invalid params ",
+            str(len(S3_ACCESS_KEY))
+            + str(len(S3_SECRET_KEY))
+            + str(len(S3_END_POINT))
         )
 
 # Vacuum table Method end
