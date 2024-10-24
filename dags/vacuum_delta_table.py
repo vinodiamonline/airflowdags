@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 VACUUM_DELTA_TABLE_PATH = "s3a://warehouse/color_10/"
 RETENTION_HOURS = 168
+SEVEN_DAYS_IN_HOURS = 168
 
 # Vacuum table Method
 def vacuum_table():
@@ -24,12 +25,6 @@ def vacuum_table():
 
     delta_table_path = Variable.get("VACUUM_DELTA_TABLE_PATH", default_var=VACUUM_DELTA_TABLE_PATH)
 
-    # table_path = str(Variable.get("VACUUM_DELTA_TABLE_PATH"))
-    # delta_table_path = table_path if len(table_path) > 0 else VACUUM_DELTA_TABLE_PATH
-
-    # retention = Variable.get("RETENTION_HOURS")
-    # retention_hours = retention if retention > 0 else RETENTION_HOURS
-
     retention_hours = Variable.get("RETENTION_HOURS", default_var=RETENTION_HOURS)
 
     # for testing
@@ -38,7 +33,7 @@ def vacuum_table():
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
 
-        retention_check = "false" if retention_hours < 168 else "true" # 7 days is default
+        retention_check = "false" if int(retention_hours) < SEVEN_DAYS_IN_HOURS else "true" # 7 days is default
 
         spark = SparkSession.builder \
             .appName("vacuum") \
@@ -88,7 +83,7 @@ with DAG(
     schedule_interval=None,
     start_date=days_ago(1),
     catchup=False,
-    tags=['etl']
+    tags=['VACUUM_DELTA_TABLE']
 ) as dag:
     # Define Operator
     vacuum_table = PythonOperator(
