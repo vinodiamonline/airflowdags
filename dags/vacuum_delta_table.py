@@ -13,7 +13,7 @@ import os
 logger = logging.getLogger(__name__)
 delta_table_path = "s3a://warehouse/color_10/"
 retention_hours = 168
-retention_check = "true"
+
 
 # Vacuum table Method
 def vacuum_table():
@@ -27,26 +27,25 @@ def vacuum_table():
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
 
-        if(retention_hours < 168) : # 7 days is default
-            retention_check = "false"
+        retention_check = "false" if retention_hours < 168 else "true" # 7 days is default
+
+        spark = SparkSession.builder \
+            .appName("vacuum") \
+            .master("local[*]") \
+            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+            .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+            .config("spark.hadoop.fs.s3a.aws.credentials.provider",
+                    "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
+            .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
+            .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
+            .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
+            .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
+            .getOrCreate()
+
         try:
-            spark = SparkSession.builder \
-                .appName("vacuum") \
-                .master("local[*]") \
-                .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
-                .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-                .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-                .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-                .config("spark.hadoop.fs.s3a.aws.credentials.provider",
-                        "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
-                .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
-                .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
-                .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
-                .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
-                .getOrCreate()
-
             spark.sql(f'VACUUM delta.`{delta_table_path}` RETAIN {retention_hours} HOURS')
-
             # for testing
             spark.read.format("delta").load(delta_table_path).printSchema()
 
