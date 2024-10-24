@@ -22,11 +22,7 @@ def vacuum_table():
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
     # for testing
-    logger.info("params "
-                + S3_ACCESS_KEY
-                + S3_SECRET_KEY
-                + S3_END_POINT
-                )
+    logger.info(f"params {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT}")
 
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
@@ -61,11 +57,7 @@ def vacuum_table():
             spark.stop()
             logger.info("Vacuum complete!!!")
     else:
-        logger.info("Invalid params "
-            + str(len(S3_ACCESS_KEY))
-            + str(len(S3_SECRET_KEY))
-            + str(len(S3_END_POINT))
-        )
+        logger.info(f"Invalid params {len(S3_ACCESS_KEY)} {len(S3_SECRET_KEY)} {len(S3_END_POINT)}")
 
 # Vacuum table Method end
 
