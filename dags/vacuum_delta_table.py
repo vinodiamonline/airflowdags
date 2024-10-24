@@ -19,6 +19,8 @@ def vacuum_table():
         .config("spark.hadoop.fs.s3a.path.style.access", "true") \
         .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
         .getOrCreate()
+
+    delta_table_path = "s3a://warehouse/color_10/"
     
     spark.sql(f"VACUUM delta.`s3a://warehouse/color_10/` RETAIN 168 HOURS")
 
