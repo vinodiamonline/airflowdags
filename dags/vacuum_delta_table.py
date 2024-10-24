@@ -17,8 +17,8 @@ retention_hours = 168
 
 # Vacuum table Method
 def vacuum_table():
-    S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY")),
-    S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY")),
+    S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY"))
+    S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
     # for testing
