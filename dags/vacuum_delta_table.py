@@ -6,14 +6,15 @@ from airflow import DAG
 from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import PythonOperator
 from pyspark.sql import SparkSession
+from airflow.models import Variable
 import logging
 import os
 
 # Define logging
 logger = logging.getLogger(__name__)
-delta_table_path = "s3a://warehouse/color_10/"
-retention_hours = 168
 
+VACUUM_DELTA_TABLE_PATH = "s3a://warehouse/color_10/"
+RETENTION_HOURS = 168
 
 # Vacuum table Method
 def vacuum_table():
@@ -21,8 +22,14 @@ def vacuum_table():
     S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
+    table_path = str(Variable.get("VACUUM_DELTA_TABLE_PATH"))
+    delta_table_path = table_path if len(table_path) > 0 else VACUUM_DELTA_TABLE_PATH
+    
+    retention = Variable.get("RETENTION_HOURS")
+    retention_hours = retention if retention > 0 else RETENTION_HOURS
+
     # for testing
-    logger.info(f"params {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT}")
+    logger.info(f"params {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT} {delta_table_path} {retention_hours}")
 
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
