@@ -10,12 +10,20 @@ from airflow.models import Variable
 import logging
 import os
 
+#
+# Define below variables in Airflow UI
+# K2DSS_VACUUM_DELTA_TABLE_PATH
+# K2DSS_RETENTION_HOURS
+# K2DSS_SCHEDULE_TIME
+#
+
 # Define logging
 logger = logging.getLogger(__name__)
 
 VACUUM_DELTA_TABLE_PATH = "s3a://warehouse/color_10/"
 RETENTION_HOURS = 168
 SEVEN_DAYS_IN_HOURS = 168
+SCHEDULE_TIME = '0 5 * * *'  # Every day at 5 AM UTC
 
 # Vacuum table Method
 def vacuum_table():
@@ -23,12 +31,10 @@ def vacuum_table():
     S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
-    delta_table_path = Variable.get("VACUUM_DELTA_TABLE_PATH", default_var=VACUUM_DELTA_TABLE_PATH)
+    delta_table_path = Variable.get("K2DSS_VACUUM_DELTA_TABLE_PATH", default_var=VACUUM_DELTA_TABLE_PATH)
+    retention_hours = Variable.get("K2DSS_RETENTION_HOURS", default_var=RETENTION_HOURS)
 
-    retention_hours = Variable.get("RETENTION_HOURS", default_var=RETENTION_HOURS)
-
-    # for testing
-    logger.info(f"params {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT} {delta_table_path} {retention_hours}")
+    logger.info(f"params {len(S3_ACCESS_KEY)} {len(S3_SECRET_KEY)} {len(S3_END_POINT)} {delta_table_path} {retention_hours}")
 
     if (len(S3_ACCESS_KEY) > 0) and (len(S3_SECRET_KEY) > 0) and (len(S3_END_POINT) > 0):
         logger.info("Start vacuuming!!!")
@@ -53,7 +59,7 @@ def vacuum_table():
         try:
             spark.sql(f'VACUUM delta.`{delta_table_path}` RETAIN {retention_hours} HOURS')
             # for testing
-            spark.read.format("delta").load(delta_table_path).printSchema()
+            # spark.read.format("delta").load(delta_table_path).printSchema()
 
         except Exception as e:
             logger.info(f"An error occurred: {e}")
@@ -75,12 +81,14 @@ default_args = {
     'retries': 0
 }
 
+run_schedule = Variable.get("K2DSS_SCHEDULE_TIME", default_var=SCHEDULE_TIME)
+
 # Define the DAG
 with DAG(
     'vacuum_delta_table',
     default_args=default_args,
     description='A DAG to vacuum delta table',
-    schedule_interval=None,
+    schedule_interval=run_schedule,
     start_date=days_ago(1),
     catchup=False,
     tags=['VACUUM_DELTA_TABLE']
