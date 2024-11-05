@@ -25,7 +25,7 @@ def create_messages_function(**context) :
 
 # Define the DAG
 with DAG(
-    'producer_kafka',
+    'produce_consume_kafka',
     default_args=default_args,
     schedule_interval=None,  # This is triggered manually
     catchup=False,
