@@ -19,8 +19,9 @@ default_args = {
     'retries': 0,
 }
 
-def create_messages_function(**context) :
+def create_messages_function(self, **context) :
     print("hello world")
+    return self
 
 # Define the DAG
 with DAG(
