@@ -19,7 +19,7 @@ default_args = {
     'retries': 0,
 }
 
-def create_messages_function(self, **context) :
+def create_messages_function(**context) :
     print("hello world")
     return self
 
@@ -36,7 +36,8 @@ with DAG(
     produce_task = ProduceToTopicOperator(
         task_id='produce_to_topic',
         topic='your_topic',
-        producer_function=create_messages_function
+        producer_function=create_messages_function,
+        producer_function_args=(b"test")
     )
 
     # Set task dependencies
