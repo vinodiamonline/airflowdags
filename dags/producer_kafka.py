@@ -21,7 +21,7 @@ default_args = {
 
 # Define the DAG
 with DAG(
-    'produce_consume_treats',
+    'producer_kafka',
     default_args=default_args,
     schedule_interval=None,  # This is triggered manually
     catchup=False,
