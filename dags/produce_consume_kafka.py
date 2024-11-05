@@ -18,10 +18,12 @@ NUMBER_OF_TREATS = 5
 KAFKA_TOPIC = "kutta_topic"
 
 
-def prod_function(num_treats, pet_name, **context):
+def prod_function(**context):
     """Produces `num_treats` messages containing the pet's name, a randomly picked
     pet mood post treat and whether or not it was the last treat in a series."""
 
+    num_treats = 5
+    pet_name = "kutta"
     for i in range(num_treats):
         final_treat = False
         pet_mood_post_treat = random.choices(
@@ -43,13 +45,9 @@ def prod_function(num_treats, pet_name, **context):
 
 def consume_function(message, name, **context):
     "Takes in consumed messages and prints its contents to the logs."
-
-    key = json.loads(message.key())
-    message_content = json.loads(message.value())
-    pet_name = message_content["pet_name"]
-    pet_mood_post_treat = message_content["pet_mood_post_treat"]
+    message = "hello world"
     print(
-        f"Message #{key}: Hello {name}, your pet {pet_name} has consumed another treat and is now {pet_mood_post_treat}!"
+        f"Message {message}!"
     )
 
 
