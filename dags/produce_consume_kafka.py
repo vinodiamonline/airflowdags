@@ -43,7 +43,7 @@ def prod_function(**context):
         )
 
 
-def consume_function(message, name, **context):
+def consume_function(**context):
     "Takes in consumed messages and prints its contents to the logs."
     message = "hello world"
     print(
