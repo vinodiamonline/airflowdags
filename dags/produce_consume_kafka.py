@@ -16,7 +16,7 @@ message_payload = 'Hello, Kafka! This is a message from Airflow.'
 default_args = {
     'owner': 'airflow',
     'start_date': datetime(2024, 11, 5),
-    'retries': 1,
+    'retries': 0,
 }
 
 # Define the DAG
