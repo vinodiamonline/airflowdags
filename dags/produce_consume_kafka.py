@@ -77,10 +77,7 @@ def produce_consume_treats():
         kafka_config_id="kafka_default",
         topic=KAFKA_TOPIC,
         producer_function=prod_function,
-        producer_function_args=["{{ ti.xcom_pull(task_ids='get_number_of_treats')}}"],
-        producer_function_kwargs={
-            "pet_name": "{{ ti.xcom_pull(task_ids='get_your_pet_name')}}"
-        },
+        producer_function_args=(b"test", b"test"),
         poll_timeout=10,
     )
 
