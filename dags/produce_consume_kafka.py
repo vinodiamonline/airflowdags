@@ -58,6 +58,7 @@ def consume_function(message, name):
     schedule=None,
     catchup=False,
     render_template_as_native_obj=True,
+    provide_context=True,
 )
 def produce_consume_treats():
     @task
@@ -82,7 +83,6 @@ def produce_consume_treats():
             "pet_name": "{{ ti.xcom_pull(task_ids='get_your_pet_name')}}"
         },
         poll_timeout=10,
-        provide_context=True
     )
 
     consume_treats = ConsumeFromTopicOperator(
@@ -96,7 +96,6 @@ def produce_consume_treats():
         poll_timeout=20,
         max_messages=20,
         max_batch_size=20,
-        provide_context=True
     )
 
     [
