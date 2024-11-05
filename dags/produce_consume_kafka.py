@@ -58,7 +58,6 @@ def consume_function(message, name):
     schedule=None,
     catchup=False,
     render_template_as_native_obj=True,
-    provide_context=True,
 )
 def produce_consume_treats():
     @task
