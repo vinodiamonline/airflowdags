@@ -19,6 +19,9 @@ default_args = {
     'retries': 0,
 }
 
+def create_messages_function :
+    print("hello world")
+
 # Define the DAG
 with DAG(
     'producer_kafka',
@@ -29,13 +32,11 @@ with DAG(
 ) as dag:
 
     # Task to produce a message to the Kafka topic
-    produce_message = ProduceToTopicOperator(
-        task_id='send_message_to_kafka',
-        kafka_conn_id=KAFKA_CONN_ID,
-        topic=KAFKA_TOPIC,
-        message=message_payload,
-        value_serializer='json',  # Serializer (e.g., json or simple string)
+    produce_task = ProduceToTopicOperator(
+        task_id='produce_to_topic',
+        topic='your_topic',
+        producer_function=create_messages_function
     )
 
     # Set task dependencies
-    produce_message
+    produce_task
