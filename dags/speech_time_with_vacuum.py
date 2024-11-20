@@ -88,7 +88,7 @@ def vacuum_table():
 
 # Define the DAG
 dag = DAG(
-    'speech_time',
+    'speech_time_with_vacuum',
     default_args=default_args,
     description='A DAG to calculate etl_speech_time',
     schedule_interval=run_schedule,
