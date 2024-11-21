@@ -13,8 +13,8 @@ import os
 #
 # Define below variables in Airflow UI
 # SPEECHTIME_VACUUM_DELTA_TABLE_PATH
-# SPEECHTIME_RETENTION_HOURS
-# SPEECHTIME_SCHEDULE_TIME
+# SPEECHTIME_VACUUM_RETENTION_HOURS
+# SPEECHTIME_VACUUM_SCHEDULE_TIME
 #
 
 # Define logging
@@ -32,7 +32,7 @@ def vacuum_table():
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
 
     delta_table_path = Variable.get("SPEECHTIME_VACUUM_DELTA_TABLE_PATH", default_var=VACUUM_DELTA_TABLE_PATH)
-    retention_hours = Variable.get("SPEECHTIME_RETENTION_HOURS", default_var=RETENTION_HOURS)
+    retention_hours = Variable.get("SPEECHTIME_VACUUM_RETENTION_HOURS", default_var=RETENTION_HOURS)
 
     logger.info(f"params {len(S3_ACCESS_KEY)} {len(S3_SECRET_KEY)} {len(S3_END_POINT)} {delta_table_path} {retention_hours}")
 
@@ -81,7 +81,7 @@ default_args = {
     'retries': 0
 }
 
-run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=SCHEDULE_TIME)
+run_schedule = Variable.get("SPEECHTIME_VACUUM_SCHEDULE_TIME", default_var=SCHEDULE_TIME)
 
 # Define the DAG
 with DAG(
