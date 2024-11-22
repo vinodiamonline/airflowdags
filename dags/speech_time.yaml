@@ -28,6 +28,6 @@ spec:
     - {{ params.S3_ACCESS_KEY }}
     - {{ params.S3_SECRET_KEY }}
     - {{ params.S3_END_POINT }}
-    - {{ params.BRONZE_TABLE_PATH }}
-    - {{ params.SILVER_TABLE_PATH }}
-    - '864000'
+    - s3a://warehouse/tbl_engagement_bronze
+    - s3a://warehouse/tbl_engagement_speech_silver
+    - '86400'
