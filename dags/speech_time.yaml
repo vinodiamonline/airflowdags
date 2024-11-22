@@ -30,4 +30,4 @@ spec:
     - {{ params.S3_END_POINT }}
     - {{ params.BRONZE_TABLE_PATH }}
     - {{ params.SILVER_TABLE_PATH }}
-    - "{{ params.TIME_WINDOW_IN_SECS }}"
+    - '864000'
