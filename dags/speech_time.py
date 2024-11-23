@@ -36,13 +36,8 @@ with DAG(
         task_id="speech_time",
         namespace='airflow',
         application_file='speech_time.yaml',
-        kubernetes_conn_id='spark-cluster-connection',
-        params={
-        "S3_ACCESS_KEY": os.getenv("AWS_S3_ACCESS_KEY"),
-        "S3_SECRET_KEY": os.getenv("AWS_S3_SECRET_KEY"),
-        "S3_END_POINT": os.getenv("AWS_S3_END_POINT")
-    }
-)
+        kubernetes_conn_id='spark-cluster-connection'
+    )
 
 # Define the task sequence
 spark_job
