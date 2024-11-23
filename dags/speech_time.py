@@ -20,24 +20,16 @@ default_args = {
     'retries': 0,
     'retry_delay': timedelta(minutes=5),
 }
-   
-# Define the DAG
-with DAG(
-    'speech_time',
-    default_args=default_args,
-    description='A DAG to calculate etl_speech_time',
-    schedule_interval=None,
-    start_date=days_ago(1),
-    catchup=False,
-    tags=['SpeechTime', 'ETL'],
-) as dag:
-    # Define Operator
-    spark_job = SparkKubernetesOperator(
-        task_id="speech_time",
-        namespace='airflow',
-        application_file='speech_time.yaml',
-        kubernetes_conn_id='spark-cluster-connection'
-    )
+
+def print_hello():
+    print('Hello world from first Airflow DAG!')
+
+dag = DAG('speech_time', description='speech time',
+          schedule_interval=None,
+          start_date=datetime(2017, 3, 20), 
+          catchup=False)
+
+spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello, dag=dag)
 
 # Define the task sequence
 spark_job
