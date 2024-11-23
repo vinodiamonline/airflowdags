@@ -26,7 +26,7 @@ def print_hello():
 
 dag = DAG('speech_time', description='speech time',
           schedule_interval=None,
-          start_date=datetime(2017, 3, 20), 
+          start_date=days_ago(1), 
           catchup=False)
 
 spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello, dag=dag)
