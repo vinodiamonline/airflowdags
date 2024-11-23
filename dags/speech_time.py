@@ -7,6 +7,10 @@ import os
 
 # run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
 
+print(os.getenv("AWS_S3_ACCESS_KEY"))
+print(os.getenv("AWS_S3_SECRET_KEY"))
+print(os.getenv("AWS_S3_END_POINT"))
+
 # Define default arguments
 default_args = {
     'owner': 'airflow',
