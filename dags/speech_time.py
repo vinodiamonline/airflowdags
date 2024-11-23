@@ -34,7 +34,7 @@ dag = DAG('speech_time', description='speech time',
 spark_job = SparkKubernetesOperator(
         task_id="speech_time",
         namespace='airflow',
-        application_file='speech_time.yaml',
+        application_file='speechtimetest.yaml',
         kubernetes_conn_id='spark-cluster-connection',
         dag=dag)
 
