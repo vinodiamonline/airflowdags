@@ -7,7 +7,7 @@ spec:
   type: Scala
   mode: cluster
   image: docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime/etlelt:main_3
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
   mainClass: speech
   sparkVersion: 3.5.2
@@ -24,10 +24,3 @@ spec:
     memory: 2g
     instances: 2
     labels: {}
-  arguments:
-    - 'admin'
-    - 'password'
-    - 'http://host.docker.internal:9000'
-    - 's3a://warehouse/tbl_engagement_bronze'
-    - 's3a://warehouse/tbl_engagement_speech_silver'
-    - '86400'
