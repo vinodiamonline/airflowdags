@@ -6,21 +6,21 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: "docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime/etlelt:main_3"
-  imagePullPolicy: IfNotPresent
-  mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar
-  mainClass: speech
+  image: "docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime/etlelt:main_3" # /etlelt:main_2 1.0.8 Docker image
+  imagePullPolicy: Always
+  mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar  # Path to the JAR file in the Docker image
+  mainClass: speech # Class name
   sparkVersion: 3.5.2
   restartPolicy:
     type: Never
   labels: {}
   driver:
     cores: 1
-    memory: 2g
+    memory: 1g
     labels: {}
     serviceAccount: spark-operator-spark
   executor:
     cores: 1
-    memory: 2g
+    memory: 1g
     instances: 2
     labels: {}
