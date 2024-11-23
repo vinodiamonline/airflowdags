@@ -5,7 +5,7 @@ from airflow.models import Variable
 from datetime import timedelta
 import os
 
-run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
+# run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
 
 # Define default arguments
 default_args = {
@@ -22,7 +22,7 @@ with DAG(
     'speech_time',
     default_args=default_args,
     description='A DAG to calculate etl_speech_time',
-    schedule_interval=run_schedule,
+    schedule_interval=None,
     start_date=days_ago(1),
     catchup=False,
     tags=['SpeechTime', 'ETL'],
