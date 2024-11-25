@@ -35,7 +35,7 @@ spark_job = SparkKubernetesOperator(
         task_id="speech_time",
         namespace='airflow',
         application_file='speechtimetest.yaml',
-        kubernetes_conn_id='spark-cluster-connection',
+        kubernetes_conn_id='spark-local',
         dag=dag)
 
 # Define the task sequence
