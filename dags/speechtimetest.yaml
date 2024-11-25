@@ -6,7 +6,7 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: "docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime/etlelt:main_3" # /etlelt:main_2 1.0.8 Docker image
+  image: docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime:1.0.8 # /etlelt:main_3 1.0.8 Docker image
   imagePullPolicy: Always
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar  # Path to the JAR file in the Docker image
   mainClass: speech # Class name
