@@ -5,6 +5,7 @@ from airflow.models import Variable
 from datetime import timedelta
 import os
 from airflow.operators.python_operator import PythonOperator
+import logging
 
 #
 # Define below variables in Airflow UI
@@ -13,6 +14,9 @@ from airflow.operators.python_operator import PythonOperator
 # SPEECHTIME_WINDOW_IN_SECS
 #
 
+# Define logging
+logger = logging.getLogger(__name__)
+
 BRONZE_TABLE_PATH = Variable.get("SPEECHTIME_BRONZE_TABLE_PATH", 
                                  default_var="s3a://connect-analytics-platform/dl_engagement_bronze/")
 SILVER_TABLE_PATH = Variable.get("SPEECHTIME_SILVER_TABLE_PATH", 
@@ -20,6 +24,12 @@ SILVER_TABLE_PATH = Variable.get("SPEECHTIME_SILVER_TABLE_PATH",
 TIME_WINDOW_IN_SECS = Variable.get("SPEECHTIME_WINDOW_IN_SECS", default_var=86400)
 
 run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
+
+S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY"))
+S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
+S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
+
+logger.info(f"params {BRONZE_TABLE_PATH} {SILVER_TABLE_PATH} {TIME_WINDOW_IN_SECS} {S3_ACCESS_KEY} {S3_SECRET_KEY} {S3_END_POINT}")
 
 # Define default arguments
 default_args = {
