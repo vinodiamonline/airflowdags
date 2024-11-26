@@ -4,6 +4,7 @@ from airflow.utils.dates import days_ago
 from airflow.models import Variable
 from datetime import timedelta
 import os
+from airflow.operators.python_operator import PythonOperator
 
 #
 # Define below variables in Airflow UI
@@ -29,7 +30,10 @@ default_args = {
     'retries': 0,
     'retry_delay': timedelta(minutes=5),
 }
-   
+
+def print_hello():
+    print('Hello world from first Airflow DAG!')
+  
 # Define the DAG
 with DAG(
     'speech_time',
@@ -40,7 +44,7 @@ with DAG(
     catchup=False,
     tags=['SpeechTime', 'ETL'],
 ) as dag:
-    print("hello world")
+    spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello)
 )
 
 # Define the task sequence
