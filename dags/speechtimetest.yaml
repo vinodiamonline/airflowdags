@@ -24,3 +24,10 @@ spec:
     memory: 1g
     instances: 2
     labels: {}
+  arguments: # arguments to be passed to jar main method
+    - {{ params.S3_ACCESS_KEY }}
+    - {{ params.S3_SECRET_KEY }}
+    - {{ params.S3_END_POINT }}
+    - {{ params.BRONZE_TABLE_PATH }}
+    - {{ params.SILVER_TABLE_PATH }}
+    - "{{ params.TIME_WINDOW_IN_SECS }}"
