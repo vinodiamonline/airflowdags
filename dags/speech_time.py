@@ -4,7 +4,6 @@ from airflow.utils.dates import days_ago
 from airflow.models import Variable
 from datetime import timedelta
 import os
-from airflow.operators.python_operator import PythonOperator
 
 #
 # Define below variables in Airflow UI
@@ -30,18 +29,6 @@ default_args = {
     'retries': 0,
     'retry_delay': timedelta(minutes=5),
 }
-
-def print_hello():
-    print('Hello world from first Airflow DAG!')
-    S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY"))
-    S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
-    S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
-    print(BRONZE_TABLE_PATH)
-    print(SILVER_TABLE_PATH)
-    print(TIME_WINDOW_IN_SECS)
-    print(S3_ACCESS_KEY)
-    print(S3_SECRET_KEY)
-    print(S3_END_POINT)
 
 # Define the DAG
 with DAG(
