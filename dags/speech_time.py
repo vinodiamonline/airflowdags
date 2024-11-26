@@ -59,16 +59,8 @@ with DAG(
     spark_job = SparkKubernetesOperator(
         task_id="speech_time",
         namespace='airflow',
-        application_file='speech_time.yaml',
-        kubernetes_conn_id='spark-cluster-connection',
-        params={
-          "S3_ACCESS_KEY": str(os.getenv("AWS_S3_ACCESS_KEY")),
-          "S3_SECRET_KEY": str(os.getenv("AWS_S3_SECRET_KEY")),
-          "S3_END_POINT": str(os.getenv("AWS_S3_END_POINT")),
-          "BRONZE_TABLE_PATH": BRONZE_TABLE_PATH,
-          "SILVER_TABLE_PATH": SILVER_TABLE_PATH,
-          "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS
-        }
+        application_file='speechtimetest.yaml',
+        kubernetes_conn_id='spark-cluster-connection'
     )
   
 # spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello)
