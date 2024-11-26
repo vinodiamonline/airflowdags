@@ -55,9 +55,9 @@ with DAG(
 ) as dag:
   # Define Operator
     spark_job = SparkKubernetesOperator(
-        task_id="speech_time_1",
+        task_id="speech_time",
         namespace='airflow',
-        application_file='speechtimetest.yaml',
+        application_file='speech_time.yaml',
         kubernetes_conn_id='spark-cluster',
         params={
           "S3_ACCESS_KEY": os.getenv("AWS_S3_ACCESS_KEY"),
@@ -68,9 +68,6 @@ with DAG(
           "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS
       }
     )
-
-
-print_hello
 
 # Define the task sequence
 spark_job
