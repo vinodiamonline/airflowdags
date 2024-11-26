@@ -60,7 +60,7 @@ with DAG(
         task_id="speech_time_1",
         namespace='airflow',
         application_file='speechtimetest.yaml',
-        kubernetes_conn_id='spark-cluster-connection'
+        kubernetes_conn_id='spark-cluster'
     )
   
 # spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello)
