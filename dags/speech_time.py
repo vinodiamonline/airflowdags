@@ -40,20 +40,7 @@ with DAG(
     catchup=False,
     tags=['SpeechTime', 'ETL'],
 ) as dag:
-    # Define Operator
-    spark_job = SparkKubernetesOperator(
-        task_id="speech_time",
-        namespace='airflow',
-        application_file='speech_time.yaml',
-        kubernetes_conn_id='spark-cluster-connection',
-        params={
-        "S3_ACCESS_KEY": os.getenv("AWS_S3_ACCESS_KEY"),
-        "S3_SECRET_KEY": os.getenv("AWS_S3_SECRET_KEY"),
-        "S3_END_POINT": os.getenv("AWS_S3_END_POINT"),
-        "BRONZE_TABLE_PATH": BRONZE_TABLE_PATH,
-        "SILVER_TABLE_PATH": SILVER_TABLE_PATH,
-        "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS
-    }
+    print("hello world")
 )
 
 # Define the task sequence
