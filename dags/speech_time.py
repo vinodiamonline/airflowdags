@@ -43,8 +43,6 @@ def print_hello():
     print(S3_SECRET_KEY)
     print(S3_END_POINT)
 
-print_hello
-
 # Define the DAG
 with DAG(
     'speech_time',
@@ -60,10 +58,19 @@ with DAG(
         task_id="speech_time_1",
         namespace='airflow',
         application_file='speechtimetest.yaml',
-        kubernetes_conn_id='spark-cluster'
+        kubernetes_conn_id='spark-cluster',
+        params={
+          "S3_ACCESS_KEY": os.getenv("AWS_S3_ACCESS_KEY"),
+          "S3_SECRET_KEY": os.getenv("AWS_S3_SECRET_KEY"),
+          "S3_END_POINT": os.getenv("AWS_S3_END_POINT"),
+          "BRONZE_TABLE_PATH": BRONZE_TABLE_PATH,
+          "SILVER_TABLE_PATH": SILVER_TABLE_PATH,
+          "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS
+      }
     )
-  
-# spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello)
+
+
+print_hello
 
 # Define the task sequence
 spark_job
