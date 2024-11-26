@@ -57,7 +57,7 @@ with DAG(
 ) as dag:
   # Define Operator
     spark_job = SparkKubernetesOperator(
-        task_id="speech_time",
+        task_id="speech_time_1",
         namespace='airflow',
         application_file='speechtimetest.yaml',
         kubernetes_conn_id='spark-cluster-connection'
