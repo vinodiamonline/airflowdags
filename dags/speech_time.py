@@ -52,7 +52,8 @@ with DAG(
     description='A DAG to calculate etl_speech_time',
     schedule_interval=None,
     start_date=days_ago(1),
-    catchup=False
+    catchup=False,
+    tags=['SpeechTime', 'ETL'],
 ) as dag:
   # Define Operator
     spark_job = SparkKubernetesOperator(
