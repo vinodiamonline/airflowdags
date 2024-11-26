@@ -45,7 +45,6 @@ with DAG(
     tags=['SpeechTime', 'ETL'],
 ) as dag:
     spark_job = PythonOperator(task_id='speech_time', python_callable=print_hello)
-)
 
 # Define the task sequence
 spark_job
