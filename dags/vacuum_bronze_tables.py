@@ -21,7 +21,7 @@ import os
 # Define logging
 logger = logging.getLogger(__name__)
 
-TABLE_PATHS = "s3a://connect-analytics-platform/tbl_engagement_bronze/"
+TABLE_PATHS = "s3a://connect-analytics-platform/dl_engagement_bronze/"
 RETENTION_HOURS = 168
 SEVEN_DAYS_IN_HOURS = 168
 SCHEDULE_TIME = '0 5 * * *'  # Every day at 5 AM UTC
