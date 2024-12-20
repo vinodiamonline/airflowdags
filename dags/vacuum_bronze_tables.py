@@ -54,6 +54,10 @@ def vacuum_tables():
             .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
             .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
             .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
+            .config("spark.executor.cores", "2") \
+            .config("spark.executor.memory", "2g") \
+            .config("spark.driver.cores", "2") \
+            .config("spark.driver.memory", "2g") \
             .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
             .getOrCreate()
 
