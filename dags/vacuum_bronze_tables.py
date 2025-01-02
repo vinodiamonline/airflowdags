@@ -21,6 +21,8 @@ import os
 # Define logging
 logger = logging.getLogger(__name__)
 
+logger.info(str(os.getenv("JAVA_HOME")))
+
 TABLE_PATHS = "s3a://connect-analytics-platform/dl_engagement_bronze/"
 RETENTION_HOURS = 168
 SEVEN_DAYS_IN_HOURS = 168
