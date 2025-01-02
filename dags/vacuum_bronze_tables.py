@@ -29,15 +29,6 @@ SCHEDULE_TIME = '0 5 * * *'  # Every day at 5 AM UTC
 
 # Vacuum table Method
 def vacuum_tables():
-
-    logger.info(str(os.getenv("JAVA_HOME")))
-    logger.info(str(os.getenv("SPARK_HOME")))
-
-    os.environ['SPARK_HOME'] = '/home/airflow/.local/lib/python3.9/site-packages/pyspark'
-    
-    logger.info(str(os.getenv("JAVA_HOME")))    
-    logger.info(str(os.getenv("SPARK_HOME")))
-
     S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY"))
     S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
@@ -55,7 +46,7 @@ def vacuum_tables():
         spark = SparkSession.builder \
             .appName("vacuum") \
             .master("local[*]") \
-            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
+            .config("spark.jars.packages", "pkg:maven/io.delta/delta-spark_2.12@3.2.0,pkg:maven/org.apache.hadoop/hadoop-aws@3.3.1") \
             .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
             .config("spark.hadoop.fs.s3a.path.style.access", "true") \
