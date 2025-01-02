@@ -21,7 +21,6 @@ import os
 # Define logging
 logger = logging.getLogger(__name__)
 
-logger.info(str(os.getenv("JAVA_HOME")))
 
 TABLE_PATHS = "s3a://connect-analytics-platform/dl_engagement_bronze/"
 RETENTION_HOURS = 168
@@ -30,6 +29,15 @@ SCHEDULE_TIME = '0 5 * * *'  # Every day at 5 AM UTC
 
 # Vacuum table Method
 def vacuum_tables():
+
+    logger.info(str(os.getenv("JAVA_HOME")))
+    logger.info(str(os.getenv("SPARK_HOME")))
+
+    os.environ['SPARK_HOME'] = '/home/airflow/.local/lib/python3.9/site-packages/pyspark'
+    
+    logger.info(str(os.getenv("JAVA_HOME")))    
+    logger.info(str(os.getenv("SPARK_HOME")))
+
     S3_ACCESS_KEY = str(os.getenv("AWS_S3_ACCESS_KEY"))
     S3_SECRET_KEY = str(os.getenv("AWS_S3_SECRET_KEY"))
     S3_END_POINT = str(os.getenv("AWS_S3_END_POINT"))
