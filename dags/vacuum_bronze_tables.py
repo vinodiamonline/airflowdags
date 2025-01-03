@@ -85,7 +85,7 @@ default_args = {
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 1
+    'retries': 0
 }
 
 run_schedule = Variable.get("VACUUM_BRONZE_TABLE_SCHEDULE_TIME", default_var=SCHEDULE_TIME)
