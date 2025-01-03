@@ -46,8 +46,7 @@ def vacuum_tables():
         spark = SparkSession.builder \
             .appName("vacuum") \
             .master("local[*]") \
-            .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.1") \
-            .config("spark.jars", "s3a://warehouse/libs/antlr4-runtime-4.9.3.jar,s3a://warehouse/libs/aws-java-sdk-bundle-1.11.901.jar,s3a://warehouse/libs/delta-spark_2.12-3.2.0.jar,s3a://warehouse/libs/delta-storage-3.2.0.jar,s3a://warehouse/libs/hadoop-aws-3.3.1.jar,s3a://warehouse/libs/wildfly-openssl-java-1.0.7.Final.jar") \
+            .config("spark.jars", "http://vincps2.corp.adobe.com/common/libs/antlr4-runtime-4.9.3.jar,http://vincps2.corp.adobe.com/common/libs/aws-java-sdk-bundle-1.11.901.jar,http://vincps2.corp.adobe.com/common/libs/delta-spark_2.12-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/delta-storage-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/hadoop-aws-3.3.1.jar,http://vincps2.corp.adobe.com/common/libs/wildfly-openssl-java-1.0.7.Final.jar") \
             .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
             .config("spark.hadoop.fs.s3a.path.style.access", "true") \
