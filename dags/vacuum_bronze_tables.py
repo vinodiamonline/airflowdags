@@ -46,9 +46,7 @@ def vacuum_tables():
         spark = SparkSession.builder \
             .appName("vacuum") \
             .master("local[*]") \
-            .config("spark.driver.extraJavaOptions", "-Divy.cache.dir=/home/airflow/.ivy2/cache -Divy.home=/home/airflow/.ivy2 -Dconfig.override_with_env_vars=true") \
-            .config("spark.executor.extraJavaOptions", "-Dconfig.override_with_env_vars=true") \
-            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.1") \
+            .config("spark.jars", "s3a://warehouse/libs/antlr4-runtime-4.9.3.jar,s3a://warehouse/libs/aws-java-sdk-bundle-1.11.901.jar,s3a://warehouse/libs/delta-spark_2.12-3.2.0.jar,s3a://warehouse/libs/delta-storage-3.2.0.jar,s3a://warehouse/libs/hadoop-aws-3.3.1.jar,s3a://warehouse/libs/wildfly-openssl-java-1.0.7.Final.jar") \
             .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
             .config("spark.hadoop.fs.s3a.path.style.access", "true") \
