@@ -8,6 +8,7 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import PythonOperator
 from pyspark.sql import SparkSession
 from airflow.models import Variable
+from datetime import timedelta
 import logging
 import os
 
