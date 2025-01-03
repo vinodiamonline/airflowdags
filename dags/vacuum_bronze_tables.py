@@ -100,7 +100,7 @@ with DAG(
     start_date=days_ago(1),
     catchup=False,
     max_active_runs=1,
-    dagrun_timeout=timedelta(minutes=1),
+    dagrun_timeout=timedelta(hours=24),
     tags=['VACUUM_BRONZE_TABLE', 'VACUUM', 'NIGHTLY']
 ) as dag:
     # Define Operator
