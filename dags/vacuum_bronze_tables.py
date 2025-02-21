@@ -47,7 +47,7 @@ def vacuum_tables():
         spark = SparkSession.builder \
             .appName("vacuum") \
             .master("local[*]") \
-            .config("spark.jars", "http://vincps2.corp.adobe.com/common/libs/antlr4-runtime-4.9.3.jar,http://vincps2.corp.adobe.com/common/libs/aws-java-sdk-bundle-1.11.901.jar,http://vincps2.corp.adobe.com/common/libs/delta-spark_2.12-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/delta-storage-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/hadoop-aws-3.3.1.jar,http://vincps2.corp.adobe.com/common/libs/wildfly-openssl-java-1.0.7.Final.jar") \
+            .config("spark.jars", "libs/antlr4-runtime-4.9.3.jar,libs/aws-java-sdk-bundle-1.11.901.jar,libs/delta-spark_2.12-3.2.0.jar,libs/delta-storage-3.2.0.jar,libs/hadoop-aws-3.3.1.jar,libs/wildfly-openssl-java-1.0.7.Final.jar") \
             .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
             .config("spark.hadoop.fs.s3a.path.style.access", "true") \
@@ -62,6 +62,25 @@ def vacuum_tables():
             .config("spark.driver.memory", "2g") \
             .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
             .getOrCreate()
+        
+        # spark = SparkSession.builder \
+        #     .appName("vacuum") \
+        #     .master("local[*]") \
+        #     .config("spark.jars", "http://vincps2.corp.adobe.com/common/libs/antlr4-runtime-4.9.3.jar,http://vincps2.corp.adobe.com/common/libs/aws-java-sdk-bundle-1.11.901.jar,http://vincps2.corp.adobe.com/common/libs/delta-spark_2.12-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/delta-storage-3.2.0.jar,http://vincps2.corp.adobe.com/common/libs/hadoop-aws-3.3.1.jar,http://vincps2.corp.adobe.com/common/libs/wildfly-openssl-java-1.0.7.Final.jar") \
+        #     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+        #     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+        #     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+        #     .config("spark.hadoop.fs.s3a.aws.credentials.provider",
+        #             "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider") \
+        #     .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY) \
+        #     .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY) \
+        #     .config("spark.hadoop.fs.s3a.endpoint", S3_END_POINT) \
+        #     .config("spark.executor.cores", "2") \
+        #     .config("spark.executor.memory", "2g") \
+        #     .config("spark.driver.cores", "2") \
+        #     .config("spark.driver.memory", "2g") \
+        #     .config("spark.databricks.delta.retentionDurationCheck.enabled", retention_check) \
+        #     .getOrCreate()
 
         try:
             tables = table_paths.split(",")
