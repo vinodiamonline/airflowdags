@@ -20,6 +20,8 @@ TIME_WINDOW_IN_SECS = Variable.get("SPEECHTIME_WINDOW_IN_SECS", default_var=8640
 
 run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
 
+UPSERT_BATCH_SIZE = 50
+
 # Define default arguments
 default_args = {
     'owner': 'airflow',
@@ -52,7 +54,8 @@ with DAG(
           "S3_END_POINT": os.getenv("AWS_S3_END_POINT"),
           "BRONZE_TABLE_PATH": BRONZE_TABLE_PATH,
           "SILVER_TABLE_PATH": SILVER_TABLE_PATH,
-          "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS
+          "TIME_WINDOW_IN_SECS": TIME_WINDOW_IN_SECS,
+          "UPSERT_BATCH_SIZE": UPSERT_BATCH_SIZE
       }
     )
 
