@@ -7,7 +7,7 @@ spec:
   type: Scala
   mode: cluster
   image: etlspeechtime:2.0.0 # docker-connect-release.dr-uw2.adobeitc.com/engagement/etl-elt/etlspeechtime/etlelt:main_3
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
   mainApplicationFile: local:///opt/spark/examples/jars/etlspeechtime.jar  # Path to the JAR file in the Docker image
   mainClass: speech # Class name
   sparkVersion: 3.5.2
