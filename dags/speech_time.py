@@ -20,7 +20,7 @@ TIME_WINDOW_IN_SECS = Variable.get("SPEECHTIME_WINDOW_IN_SECS", default_var=8640
 
 run_schedule = Variable.get("SPEECHTIME_SCHEDULE_TIME", default_var=None) # Every 10 mins
 
-UPSERT_BATCH_SIZE = 50
+UPSERT_BATCH_SIZE = 100
 
 # Define default arguments
 default_args = {
