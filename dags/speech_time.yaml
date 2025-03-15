@@ -24,8 +24,8 @@ spec:
       version: 3.5.2
   executor:
     cores: 2
-    memory: 8g
-    instances: 1
+    memory: 2g
+    instances: 4
     labels:
       version: 3.5.2
   arguments: # arguments to be passed to jar main method
